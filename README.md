@@ -12,25 +12,16 @@ Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust j
 
 ## Arhitektuur
 
+```mermaid
 flowchart LR
-    A1[Statistikaamet RV022U<br/>rahvastik vanuse järgi]
-    A2[TAI THT009<br/>perearstiabi võimekus]
-    A3[TAI AV40<br/>perearstiabi visiidid]
-    A4[Statistikaamet RV084<br/>rahvastikuprognoos]
-
-    A1 --> B[Airflow DAG]
-    A2 --> B
-    A3 --> B
-    A4 --> B
-
-    B --> C[Python ETL<br/>PXWeb API päringud]
-    C --> D[(PostgreSQL staging<br/>toorandmed)]
-    D --> E[dbt staging models<br/>tüüpimine ja puhastus]
-    E --> F[dbt intermediate models<br/>maakondade ja aastate ühtlustamine]
-    F --> G[dbt marts<br/>star schema ja KPI tabelid]
-    G --> H[dbt tests<br/>andmekvaliteedi kontroll]
-    G --> I[Superset dashboard]
-    G --> J[OpenMetadata<br/>lineage ja dokumentatsioon]
+    source[Statistikaamet ja TAI PXWeb API] --> ingest[Python]
+    ingest --> staging[(PostgreSQL)]
+    staging --> transform[dbt transformatsioon]
+    transform --> mart[(PostgreSQL)]
+    mart --> dashboard[Power bi/Superset]
+    mart --> quality[dbt andmekvaliteedi testid]
+    scheduler[Airflow Scheduler] --> ingest
+```
 
 Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
