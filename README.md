@@ -14,14 +14,16 @@ Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust j
 
 ```mermaid
 flowchart LR
-    source[Andmeallikas] --> ingest[Sissevõtt]
-    ingest --> staging[(staging)]
-    staging --> transform[Transformatsioon]
-    transform --> mart[(mart)]
-    mart --> dashboard[Näidikulaud]
+    source[Statistikaamet ja TAI PXWeb API] --> ingest[Python]
+    ingest --> staging[(PostgreSQL)]
+    staging --> transform[dbt transformatsioon]
+    transform --> mart[(PostgreSQL)]
+    mart --> dashboard[Power bi/Superset]
+    mart --> quality[dbt andmekvaliteedi testid]
+    scheduler[Airflow Scheduler] --> ingest
 ```
 
-Täpsem kirjeldus: [`Docs/Arhitektuur.md`]**(docs/arhitektuur.md) - add link**!!!!!!!!!
+Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 
 ## Andmestik
@@ -50,7 +52,7 @@ Kui jõuame, siis lisaks:
 
 
 
-
+# Ei ole tehtud:
 
 ## Käivitamine
 
