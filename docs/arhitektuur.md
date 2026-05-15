@@ -64,8 +64,4 @@ flowchart LR
 
 ## Privaatsus ja turve
 
-### **[Kirjelda, millised isiku- või tundlikud andmed teie projektis esinevad (kui üldse) ja kuidas neid kaitsete. Isikuandmed peavad olema anonümiseeritud. Andmebaasi paroolid peavad tulema `.env` failist.]**
-
 Projekt kasutab avalikke koondandmeid Statistikaametist ja Tervise Arengu Instituudist. Andmed on esitatud maakonna ja aasta tasemel ning ei sisalda üksikisikute nimesid, isikukoode, aadresse ega muid otseseid isikuandmeid, seega ei ole projektis vaja isikuandmeid anonümiseerida. 
-
-`.env` failist?
