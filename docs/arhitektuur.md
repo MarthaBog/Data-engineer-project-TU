@@ -7,15 +7,17 @@ _Liiklusõnnetused transpordiametist?_
 
 ## Mõõdikud -- _tuleb lahti kirjutada valemite tasemel_
 
-1. Surmajuhtude arv päevas (nädalas?)
+1. Surmajuhtude arv nädalas, saab eristada vanuserühmasid ((0-64, 65-79, 80+) ja sugu
 2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus
 3. 65+ elanike osakaal piirkonnas
 4. Surmajuhtude arv 10 000 elaniku kohta piirkonnas
 
 ## Andmeallikad -- _need tuleb üles otsida ja lisada uuenemise sagedus_
 
-| Allikas | Tüüp | Ajas muutuv? | Roll |
-|---------|------|--------------|------|
+| Allikas | Tüüp | Ajas muutuv? | Roll | Link |
+|---------|------|--------------|------|------|
+| Statistikaamet RV035 | PXWeb API | Uueneb kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
+| Keskkonnaportaal | | Uueneb kord tunnis | Sisaldab ilmamõõtmisi eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
 | Statistikaamet RV022U | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Rahvastiku vanusstruktuuri analüüsimiseks. |
 | TAI THT009 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi võimekuse hindamiseks. |
 | TAI AV40 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi tegeliku koormuse mõõtmiseks |
