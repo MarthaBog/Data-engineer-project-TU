@@ -2,13 +2,14 @@
 
 ## Äriküsimus
 
-Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust ja kättesaadavust Eesti maakondades. Analüüsist saavad kasu tervishoiu planeerijad, kohalikud omavalitsused ja otsustajad, kes peavad tuvastama piirkonnad, kus perearstiabile avalduv surve kasvab kõige kiiremini ning kus võib olla vaja lisarahastust, personali või teenuste ümberkorraldamist.
+Eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud päevaste (nädalaste?) surmajuhtude arvuga piirkondlikult  ja vanuserühmades. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte. _Perearstide arvuga mingi seos?_
 
 ## Mõõdikud
 
-1. 65+ elanike osakaal maakonnas
-2. Perearstide arv 100 000 elaniku kohta
-3. Visiidid ühe perearsti kohta
+1. 65+ elanike osakaal piirkonnas
+2. Ööpäeva keskmine teperatuur, sademete hulk ja tuule kiirus
+3. Surmajuhtude arv päevas (nädalas?)
+4. Surmajuhtude arv 10 000 elaniku kohta piirkonnas
 
 ## Andmeallikad
 
@@ -17,6 +18,8 @@ Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust j
 | Statistikaamet RV022U | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Rahvastiku vanusstruktuuri analüüsimiseks. |
 | TAI THT009 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi võimekuse hindamiseks. |
 | TAI AV40 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi tegeliku koormuse mõõtmiseks |
+ilmaaandmed
+surmaandmed
 
 Kui jõuame, siis lisaks:
 | Allikas | Tüüp | Ajas muutuv? | Roll |
