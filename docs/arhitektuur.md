@@ -18,11 +18,14 @@ _Liiklusõnnetused transpordiametist?_
 |---------|------|--------------|------|------|
 | Statistikaamet RV035 | PXWeb API | Uueneb kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
 | Keskkonnaportaal | | Uueneb kord tunnis | Sisaldab ilmamõõtmisi eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
+| Transpordiamet | segane veel | kord nädalas | sisaldab liiklusõnnetusi, osalevate autode arvu, hukkunud inimesi, asukohta jne | https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed |
+
+Lisakraam: 
+| Allikas | Tüüp | Ajas muutuv? | Roll | Link |
+|---------|------|--------------|------|------|
 | Statistikaamet RV022U | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Rahvastiku vanusstruktuuri analüüsimiseks. |
 | TAI THT009 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi võimekuse hindamiseks. |
 | TAI AV40 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi tegeliku koormuse mõõtmiseks |
-ilmaaandmed
-surmaandmed
 
 Kui jõuame, siis lisaks:
 | Allikas | Tüüp | Ajas muutuv? | Roll |
