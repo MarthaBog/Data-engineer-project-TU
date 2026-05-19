@@ -7,7 +7,7 @@ Eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seot
 ## Mõõdikud
 
 1. 65+ elanike osakaal piirkonnas
-2. Ööpäeva keskmine teperatuur, sademete hulk ja tuule kiirus
+2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus
 3. Surmajuhtude arv päevas (nädalas?)
 4. Surmajuhtude arv 10 000 elaniku kohta piirkonnas
 
