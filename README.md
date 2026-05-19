@@ -103,8 +103,11 @@ Vajalikud muutujad:
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
 2. **Laadimine** — Andmed laaditakse `staging` kihti
 3. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
-4. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
-5. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
+  - liiklusõnnetuste andmed -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv.
+  - surmade andmed --
+  - ilma andmed --
+5. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
+6. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
 
 ## Andmekvaliteedi testid
 
