@@ -10,6 +10,18 @@ Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust j
 2. Perearstide arv 100 000 elaniku kohta
 3. Visiidid ühe perearsti kohta
 
+_**Püüame eesmärgi natuke konkreetsemaks saada**_
+Meil on olemas 
+* aasta, maakond
+* 65+ rahvastiku osakaal per 100 000
+* perearsti kontaktide arv (per maakond ja aasta)
+* täidetud perearsti / õe ametikohtade arv per 100 000
+
+Saame esitada:
+* 65+ rahvastiku muutuse ajas
+* PA kontaktide arvu muutuse ajas
+* pereratsi ametikohtade arvu ajas (PA arv sõltu elanike arvust, mitte vanainimeste arvus)
+
 ## Arhitektuur
 
 ```mermaid
