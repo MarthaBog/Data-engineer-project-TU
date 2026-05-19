@@ -1,18 +1,18 @@
 # Arhitektuur
 
-## Äriküsimus
+## Äriküsimus  -- _seda osa on vaja vastavalt saadavatele andmeallikatele veidi kohendada_
 
 Eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud päevaste (nädalaste?) surmajuhtude arvuga piirkondlikult  ja vanuserühmades. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte. _Perearstide arvuga mingi seos?_
 _Liiklusõnnetused transpordiametist?_
 
-## Mõõdikud
+## Mõõdikud -- _tuleb lahti kirjutada valemite tasemel_
 
-1. 65+ elanike osakaal piirkonnas
+1. Surmajuhtude arv päevas (nädalas?)
 2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus
-3. Surmajuhtude arv päevas (nädalas?)
+3. 65+ elanike osakaal piirkonnas
 4. Surmajuhtude arv 10 000 elaniku kohta piirkonnas
 
-## Andmeallikad
+## Andmeallikad -- _need tuleb üles otsida ja lisada uuenemise sagedus_
 
 | Allikas | Tüüp | Ajas muutuv? | Roll |
 |---------|------|--------------|------|
@@ -28,26 +28,28 @@ Kui jõuame, siis lisaks:
 | Statistikaamet RV084 | PXWeb API | Jah, aga prognoosiandmed uuenevad harva | Lisaanalüüs rahvastiku vananemise tulevikuprognoosi jaoks |
 
 
-## Andmevoog
+## Andmevoog  -- _see tuleks teha nii, et andmeallikad on eraldi kastides ja vata üle skeem loengust, kuidas cron, python ja andmeallikad olema peavad_
 
 ```mermaid
 flowchart LR
-    source[Statistikaamet ja TAI PXWeb API] --> ingest[Python]
+source[Statistikaamet]  --> ingest[Python]
+source2[Keskkonnaagentuur] --> ingest[Python]
+source3[Transpordiamet] --> ingest[Python]
     ingest --> staging[(PostgreSQL)]
     staging --> transform[dbt transformatsioon]
     transform --> mart[(PostgreSQL)]
     mart --> dashboard[Power bi/Superset]
     mart --> quality[dbt andmekvaliteedi testid]
-    scheduler[Airflow Scheduler] --> ingest
+    scheduler[Cron] --> ingest
 ```
 
 ## Andmebaasi kihid
 
 | Kiht | Roll |
 |------|------|
-| `Bronze staging` | Hoiab allikatest saadud andmeid võimalikult töötlemata kujul. Siia jõuavad PXWeb API vastustest laetud rahvastiku, perearstide ja visiitide andmed. |
-| `Silver intermediate` | Puhastab ja ühtlustab andmed: maakondade nimed, aastad, vanuserühmad jne viiakse samale kujule. |
-| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast dashboard'is. Siin arvutatakse näiteks: 65+ elanike osakaal, perearstid 100 000 elaniku kohta ja visiidid ühe perearsti kohta. |
+| `Bronze staging` | Hoiab allikatest saadud andmeid võimalikult töötlemata kujul. Siia jõuavad PXWeb API vastustest laetud rahvastiku, ilma ja liiklusõnnetuste andmed. |
+| `Silver intermediate` | Puhastab ja ühtlustab andmed, et erinevad allikad läheksid kokku ajaraamis (nädala või kuu kaupa), maakondade nimed, aastad, vanuserühmad jne viiakse samale kujule. |
+| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast dashboard'is. Siin arvutatakse näiteks: surmajuhtude arv, ööpäeva keskmine temperatuur, sademed ja tuulekiirus, 65+ elanike osakaal ja liiklusõnnetuste arv ühtses ajaperioodis. |
 
 
 ## Tööjaotus - OTSUSTADA
@@ -66,6 +68,7 @@ flowchart LR
 | API struktuur või tabeli kood muutub | Python sissevõtu skript võib ebaõnnestuda või laadida valed andmed | Hoida allikate URL-id ja päringuparameetrid eraldi konfiguratsioonis ning lisada kontroll, kas oodatud veerud on olemas |
 | Maakondade nimed või koodid ei ühti eri allikates | Andmeid ei saa korrektselt ühendada maakonna tasemel | Luua dimension table, kus maakondade nimed ja koodid standardiseeritakse |
 
+
 ## Privaatsus ja turve
 
-Projekt kasutab avalikke koondandmeid Statistikaametist ja Tervise Arengu Instituudist. Andmed on esitatud maakonna ja aasta tasemel ning ei sisalda üksikisikute nimesid, isikukoode, aadresse ega muid otseseid isikuandmeid, seega ei ole projektis vaja isikuandmeid anonümiseerida. 
+Projekt kasutab avalikke koondandmeid Statistikaametist ja Keskkonnaagentuuirst ja Transpordiamet (_võibolla_). Andmed on esitatud maakonna ja aasta tasemel ning ei sisalda üksikisikute nimesid, isikukoode, aadresse ega muid otseseid isikuandmeid, seega ei ole projektis vaja isikuandmeid anonümiseerida. 
