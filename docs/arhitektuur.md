@@ -3,6 +3,7 @@
 ## Äriküsimus
 
 Eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud päevaste (nädalaste?) surmajuhtude arvuga piirkondlikult  ja vanuserühmades. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte. _Perearstide arvuga mingi seos?_
+_Liiklusõnnetused transpordiametist?_
 
 ## Mõõdikud
 
