@@ -101,10 +101,27 @@ Vajalikud muutujad:
 ## Andmevoog lühidalt
 
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
-2. **Laadimine** — Andmed laaditakse `staging` kihti
-3. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
-  - liiklusõnnetuste andmed -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv.
-  - surmade andmed --
+   **onnetused**
+   | id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
+|----|------------|----------|---------------|-------------|----------|------------|
+|  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
+ | 2 | 2023-07-22 | 05:06:00 | Harju maakond | Tallinn     |        0 |          1|
+ | 3 | 2014-01-25 | 21:06:00 | Harju maakond | Tallinn     |        0 |          1|
+|  4 | 2022-06-24 | 02:25:00 | Harju maakond | Tallinn     |        0 |          1|
+
+**surmad**
+
+| id |   Näitaja   |     Nädal     | Vaatlusperiood |      Sugu       |     Vanuserühm     |  value  |
+|----|-------------|---------------|----------------|-----------------|--------------------|---------|
+|  1 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | Vanuserühmad kokku | 15476.0 |
+|  2 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 0-64               | 3095.0 |
+|  3 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 65-79              | 4945.0 |
+|  4 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 80 ja vanemad      | 7436.0 |
+
+3. **Laadimine** — Andmed laaditakse `staging` kihti
+4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
+  - liiklusõnnetuste andmed "onnetused" -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv    
+  - surmade andmed "surmad" -- alles jäävad read, kus "Näitaja" = 'Surmade arv'
   - ilma andmed --
 5. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
 6. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
