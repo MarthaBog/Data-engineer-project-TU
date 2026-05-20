@@ -101,8 +101,10 @@ Vajalikud muutujad:
 ## Andmevoog lühidalt
 
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
+
    **onnetused**
-   | id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
+   
+| id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
 |----|------------|----------|---------------|-------------|----------|------------|
 |  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
  | 2 | 2023-07-22 | 05:06:00 | Harju maakond | Tallinn     |        0 |          1|
@@ -121,7 +123,7 @@ Vajalikud muutujad:
 3. **Laadimine** — Andmed laaditakse `staging` kihti
 4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
   - liiklusõnnetuste andmed "onnetused" -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv    
-  - surmade andmed "surmad" -- alles jäävad read, kus "Näitaja" = 'Surmade arv'
+  - surmade andmed "surmad" -- alles jäävad read, kus "Näitaja" = 'Surmade arv' & "Nädalad" <> 'Nädalad kokku'
   - ilma andmed --
 5. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
 6. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
