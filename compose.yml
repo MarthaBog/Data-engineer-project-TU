@@ -1,0 +1,100 @@
+# Docker Compose configuration for Estonian data pipeline
+# Services: PostgreSQL database + Python data loader
+# 
+# Quick start:
+#   docker compose up -d --build
+#   docker compose ps
+#   docker compose exec db psql -U projekt -d ilm_surm_liiklus
+
+services:
+  # ========================================================================
+  # PostgreSQL Database Service (pgDuckDB variant)
+  # ========================================================================
+  db:
+    # Image: pgDuckDB 18 with PostGIS-like functionality
+    image: pgduckdb/pgduckdb:18-v1.1.1
+    container_name: ilm-db
+    
+    # Load environment variables from .env file
+    env_file:
+      - .env
+    
+    # Override specific environment variables for PostgreSQL
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    
+    # Expose PostgreSQL port to host machine
+    ports:
+      - "5432:5432"
+    
+    # Persist database data in named volume
+    volumes:
+      # Database files stored in pgdata volume (survives container restarts)
+      - pgdata:/var/lib/postgresql
+      # Optional: SQL initialization scripts (uncomment to use)
+      # - ./init:/docker-entrypoint-initdb.d
+    
+    # Health check: verify database is ready before dependent services start
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+
+  # ========================================================================
+  # Python Data Loader Service
+  # ========================================================================
+  # This service downloads data from Estonian APIs and imports into database
+  python:
+    # Build image from scripts/Dockerfile
+    build: ./scripts
+    container_name: ilm-python
+    
+    # Wait for database to be healthy before starting
+    depends_on:
+      db:
+        condition: service_healthy
+    
+    # Set working directory inside container
+    working_dir: /app
+    
+    # Pass database connection parameters to Python scripts
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    # entrypoint.sh runs automatically and executes all download scripts
+
+  # ========================================================================
+  # OPTIONAL: Dashboard Service (Streamlit - commented out)
+  # ========================================================================
+  # Uncomment to add a web dashboard for data visualization
+  # dashboard:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.app
+  #   container_name: ilm-dashboard
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     DB_HOST: db
+  #     DB_PORT: "5432"
+  #     DB_USER: ${POSTGRES_USER}
+  #     DB_PASSWORD: ${POSTGRES_PASSWORD}
+  #     DB_NAME: ${POSTGRES_DB}
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   ports:
+  #     - "${DASHBOARD_PORT_HOST:-8501}:8501"
+  #   command: ["streamlit", "run", "dashboard/app.py", "--server.address=0.0.0.0"]
+
+# ============================================================================
+# Named Volumes
+# ============================================================================
+# pgdata: Persistent storage for PostgreSQL database
+volumes:
+  pgdata:
