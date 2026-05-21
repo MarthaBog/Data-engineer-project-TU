@@ -2,38 +2,27 @@
 
 ## Äriküsimus
 
-**!NB! Kuna Algselt planeeritud andmed olid liiga staatislied, siis muutsime teemat**
+**!NB! Kuna Algselt planeeritud andmed olid liiga staatilised, siis muutsime teemat**
 
-Uus eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi.
+Uus eesmärk on uurida kuidas iganädalane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Liiklusõnnetuste analüüsis on võimalik eristada ka maakonda.
 
 ## Mõõdikud -- _tuleb lahti kirjutada valemite tasemel_
 
-1. Surmajuhtude arv nädalas
-2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus 
-3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv nädalas
+1. Surmajuhtude arv nädalas vanuse lõikes
+2. Nädala keskmine temperatuur, päikesepaiste hulk
+3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
+4. Ööpäeva keskmine temperatuur, sademete hulk maakondade lõikes
  
-## Andmeallikad -- _need tuleb üles otsida ja lisada uuenemise sagedus_
+## Andmeallikad
 
-| Allikas | Tüüp | Ajas muutuv? | Roll | Link |
+| Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
 |---------|------|--------------|------|------|
-| Statistikaamet RV035 | PXWeb API | Uueneb kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
-| Keskkonnaportaal | | Uueneb kord tunnis | Sisaldab ilmamõõtmisi eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
-| Transpordiamet | segane veel | kord nädalas | sisaldab liiklusõnnetusi, osalevate autode arvu, hukkunud inimesi, asukohta jne | https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed |
-
-Lisakraam: 
-| Allikas | Tüüp | Ajas muutuv? | Roll | Link |
-|---------|------|--------------|------|------|
-| Statistikaamet RV022U | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Rahvastiku vanusstruktuuri analüüsimiseks. |
-| TAI THT009 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi võimekuse hindamiseks. |
-| TAI AV40 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi tegeliku koormuse mõõtmiseks |
-
-Kui jõuame, siis lisaks:
-| Allikas | Tüüp | Ajas muutuv? | Roll |
-|---------|------|--------------|------|
-| Statistikaamet RV084 | PXWeb API | Jah, aga prognoosiandmed uuenevad harva | Lisaanalüüs rahvastiku vananemise tulevikuprognoosi jaoks |
+| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
+| Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
+| Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, osalejate arv, vigatsatud ja hukkunud inimesi, maakond | https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed |
 
 
-## Andmevoog  -- _see tuleks teha nii, et andmeallikad on eraldi kastides ja vata üle skeem loengust, kuidas cron, python ja andmeallikad olema peavad_
+## Andmevoog
 
 ```mermaid
 flowchart LR
@@ -57,7 +46,7 @@ source3[Transpordiamet] --> ingest[Python]
 | `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast dashboard'is. Siin arvutatakse näiteks: surmajuhtude arv, ööpäeva keskmine temperatuur, sademed ja tuulekiirus, 65+ elanike osakaal ja liiklusõnnetuste arv ühtses ajaperioodis. |
 
 
-## Tööjaotus - OTSUSTADA
+## Tööjaotus
 
 | Roll | Vastutus | Täitja |
 |------|----------|--------|
