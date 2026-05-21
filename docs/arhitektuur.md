@@ -6,7 +6,7 @@
 
 Uus eesmärk on uurida kuidas iganädalane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Liiklusõnnetuste analüüsis on võimalik eristada ka maakonda.
 
-## Mõõdikud -- _tuleb lahti kirjutada valemite tasemel_
+## Mõõdikud -- _tuleb veel lahti kirjutada valemite tasemel_
 
 1. Surmajuhtude arv nädalas vanuse lõikes
 2. Nädala keskmine temperatuur, päikesepaiste hulk
@@ -17,7 +17,7 @@ Uus eesmärk on uurida kuidas iganädalane ilm (temperatuur, sademed ja tuul) on
 
 | Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
 |---------|------|--------------|------|------|
-| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
+| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | link[https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2] |
 | Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
 | Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, osalejate arv, vigatsatud ja hukkunud inimesi, maakond | https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed |
 
