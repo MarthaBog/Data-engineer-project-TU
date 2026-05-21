@@ -2,37 +2,35 @@
 
 ## Äriküsimus
 
-Eesmärk on uurida kuidas rahvastiku vananemine mõjutab perearstiabi koormust ja kättesaadavust Eesti maakondades. Analüüsist saavad kasu tervishoiu planeerijad, kohalikud omavalitsused ja otsustajad, kes peavad tuvastama piirkonnad, kus perearstiabile avalduv surve kasvab kõige kiiremini ning kus võib olla vaja lisarahastust, personali või teenuste ümberkorraldamist.
+Eesmärk on uurida kas ja kuidas iganädalane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Liiklusõnnetuste analüüsis on võimalik eristada ka maakonda.
+Ilma mõju hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid omavahel. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
+Analüüs ei tõesta otsest põhjuslikku seost, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
 **Mõõdikud:**
 
-1. 65+ elanike osakaal maakonnas
-2. Perearstide arv 100 000 elaniku kohta
-3. Visiidid ühe perearsti kohta
-
-_**Püüame eesmärgi natuke konkreetsemaks saada**_
-Meil on olemas 
-* aasta, maakond
-* 65+ rahvastiku osakaal per 100 000
-* perearsti kontaktide arv (per maakond ja aasta)
-* täidetud perearsti / õe ametikohtade arv per 100 000
-
-Saame esitada:
-* 65+ rahvastiku muutuse ajas
-* PA kontaktide arvu muutuse ajas
-* pereratsi ametikohtade arvu ajas (PA arv sõltu elanike arvust, mitte vanainimeste arvus)
+1. Nädala keskmine temperatuur, päikesepaiste hulk + Ööpäeva keskmine temperatuur
+  päikesepaiste kestus, grupeeritud aasta + nädal järgi
+2. Äärmuslikud ilmastikutingimused
+  Väga kuum päev = päev, mil maksimaalne temperatuur on üle 30°C
+  Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
+3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
+  liiklusõnnetus(valida gruppi), grupeeritud kuupäev + maakond järgi
+4. Surmajuhtude arv nädalas vanuse lõikes
+  surmade arv, grupeeritud aasta + nädal + vanuserühm järgi
 
 ## Arhitektuur
 
 ```mermaid
 flowchart LR
-    source[Statistikaamet ja TAI PXWeb API] --> ingest[Python]
+source[Statistikaamet]  --> ingest[Python]
+source2[Keskkonnaagentuur] --> ingest[Python]
+source3[Transpordiamet] --> ingest[Python]
     ingest --> staging[(PostgreSQL)]
     staging --> transform[dbt transformatsioon]
     transform --> mart[(PostgreSQL)]
     mart --> dashboard[Power bi/Superset]
     mart --> quality[dbt andmekvaliteedi testid]
-    scheduler[Airflow Scheduler] --> ingest
+    scheduler[Cron] --> ingest
 ```
 
 Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
@@ -40,16 +38,12 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 ## Andmestik
 
-| Allikas | Tüüp | Ajas muutuv? | Roll |
-|---------|------|--------------|------|
-| Statistikaamet RV022U | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Rahvastiku vanusstruktuuri analüüsimiseks. |
-| TAI THT009 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi võimekuse hindamiseks. |
-| TAI AV40 | PXWeb API | Uueneb regulaarselt, aga harva (kord poole aasta või aasta jooksul) | Perearstiabi tegeliku koormuse mõõtmiseks |
+| Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
+|---------|------|--------------|------|------|
+| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo järgi. | https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2 |
+| Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** eestis tunni ja jaama kaupa | https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused |
+| Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, osalejate arv, vigatsatud ja hukkunud inimesi, maakond | https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed |
 
-Kui jõuame, siis lisaks:
-| Allikas | Tüüp | Ajas muutuv? | Roll |
-|---------|------|--------------|------|
-| Statistikaamet RV084 | PXWeb API | Jah, aga prognoosiandmed uuenevad harva | Lisaanalüüs rahvastiku vananemise tulevikuprognoosi jaoks |
 
 ## Stack
 
@@ -59,7 +53,7 @@ Kui jõuame, siis lisaks:
 | Transformatsioon | [SQL / dbt] |
 | Andmehoidla | PostgreSQL |
 | Näidikulaud | [Superset / Power bi] |
-| Orkestreerimine | [Airflow] |
+| Orkestreerimine | [CRON] |
 
 
 
