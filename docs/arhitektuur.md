@@ -1,17 +1,17 @@
 # Arhitektuur
 
-## Äriküsimus  -- _seda osa on vaja vastavalt saadavatele andmeallikatele veidi kohendada_
+## Äriküsimus
 
-Eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud päevaste (nädalaste?) surmajuhtude arvuga piirkondlikult  ja vanuserühmades. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte. _Perearstide arvuga mingi seos?_
-_Liiklusõnnetused transpordiametist?_
+**!NB! Kuna Algselt planeeritud andmed olid liiga staatislied, siis muutsime teemat**
+
+Uus eesmärk on uurida kuidas igapäevane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi.
 
 ## Mõõdikud -- _tuleb lahti kirjutada valemite tasemel_
 
-1. Surmajuhtude arv nädalas, saab eristada vanuserühmasid ((0-64, 65-79, 80+) ja sugu
-2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus
-3. 65+ elanike osakaal piirkonnas
-4. Surmajuhtude arv 10 000 elaniku kohta piirkonnas
-
+1. Surmajuhtude arv nädalas
+2. Ööpäeva keskmine temperatuur, sademete hulk ja tuule kiirus 
+3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv nädalas
+ 
 ## Andmeallikad -- _need tuleb üles otsida ja lisada uuenemise sagedus_
 
 | Allikas | Tüüp | Ajas muutuv? | Roll | Link |
