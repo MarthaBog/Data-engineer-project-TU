@@ -1,4 +1,4 @@
-# Kas perearstiabi võimekus peab sammu rahvastiku vananemisega Eestis? — Marta Bogatõr, Mark Robin Kalder, Heti Pisarev, Inge Ringmets
+# Ilmastikutingimuste mõju surmajuhtumitele ja liiklusõnnetustele Eestis — Marta Bogatõr, Mark Robin Kalder, Heti Pisarev, Inge Ringmets
 
 ## Äriküsimus
 
