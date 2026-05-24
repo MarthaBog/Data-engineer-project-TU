@@ -50,7 +50,7 @@ source3[Transpordiamet] --> ingest[Python]
 |------|------|
 | `Bronze staging` | Hoiab allikatest saadud andmeid võimalikult töötlemata kujul. Siia jõuavad PXWeb API vastustest laetud rahvastiku, ilma ja liiklusõnnetuste andmed. |
 | `Silver intermediate` | Puhastab ja ühtlustab andmed, et erinevad allikad läheksid kokku ajaraamis (nädala või kuu kaupa), maakondade nimed, aastad, vanuserühmad jne viiakse samale kujule. |
-| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast _dashboard_is. Siin arvutatakse näiteks surmajuhtude arv, nädala keskmine temperatuur, päikesepaiste hulk ja sademed, vanuserühmad ja liiklusõnnetuste ning vigastatute ja hukunute arvud ühtses ajaperioodis. |
+| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast *dashboard*is. Siin arvutatakse näiteks surmajuhtude arv, nädala keskmine temperatuur, päikesepaiste hulk ja sademed, vanuserühmad ja liiklusõnnetuste ning vigastatute ja hukunute arvud ühtses ajaperioodis. |
 
 
 ## Tööjaotus
@@ -66,10 +66,10 @@ source3[Transpordiamet] --> ingest[Python]
 
 | Risk | Mõju | Maandus |
 |------|------|---------|
-| API struktuur või tabeli kood muutub | Python sissevõtu skript võib ebaõnnestuda või laadida valed andmed | Hoida allikate URL-id ja päringuparameetrid eraldi konfiguratsioonis ning lisada kontroll, kas oodatud veerud on olemas |
-| Maakondade nimed või koodid ei ühti eri allikates | Andmeid ei saa korrektselt ühendada maakonna tasemel | Luua dimension table, kus maakondade nimed ja koodid standardiseeritakse |
+| API struktuur või tabeli kood muutub | Pythoni skript võib ebaõnnestuda või laadida valed/vigased andmed | Hoida allikate URL-id ja päringu parameetrid eraldi konfiguratsioonis ning lisada kontroll, kas oodatud veerud on olemas |
+| Maakondade või vanuserühmade nimed või koodid ei ühti eri allikates | Andmeid ei saa korrektselt ühendada maakonna või vanuserühma tasemel | Luua *dimension table*, kus maakondade ja vanuserühmade nimed ja koodid standarditakse |
 
 
 ## Privaatsus ja turve
 
-Projekt kasutab avalikke koondandmeid Statistikaametist ja Keskkonnaagentuuirst ja Transpordiamet (_võibolla_). Andmed on esitatud maakonna ja aasta tasemel ning ei sisalda üksikisikute nimesid, isikukoode, aadresse ega muid otseseid isikuandmeid, seega ei ole projektis vaja isikuandmeid anonümiseerida. 
+Projekt kasutab statistikaameti, keskkonnaagentuuri ja transpordiameti avalikke andmeid. Andmed on kas agregeeritud või ei sisalda inimeste nimesid, isikukoode, aadresse ega muid isikuandmeid, seega ei ole projektis vaja isikuandmeid anonümiseerida. 
