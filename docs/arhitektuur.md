@@ -50,7 +50,7 @@ source3[Transpordiamet] --> ingest[Python]
 |------|------|
 | `Bronze staging` | Hoiab allikatest saadud andmeid võimalikult töötlemata kujul. Siia jõuavad PXWeb API vastustest laetud rahvastiku, ilma ja liiklusõnnetuste andmed. |
 | `Silver intermediate` | Puhastab ja ühtlustab andmed, et erinevad allikad läheksid kokku ajaraamis (nädala või kuu kaupa), maakondade nimed, aastad, vanuserühmad jne viiakse samale kujule. |
-| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast dashboard'is. Siin arvutatakse näiteks: surmajuhtude arv, ööpäeva keskmine temperatuur, sademed ja tuulekiirus, 65+ elanike osakaal ja liiklusõnnetuste arv ühtses ajaperioodis. |
+| `Gold mart` | Hoiab transformeeritud ja äriloogikat sisaldavaid tabeleid, mida kasutatakse pärast _dashboard_is. Siin arvutatakse näiteks surmajuhtude arv, nädala keskmine temperatuur, päikesepaiste hulk ja sademed, vanuserühmad ja liiklusõnnetuste ning vigastatute ja hukunute arvud ühtses ajaperioodis. |
 
 
 ## Tööjaotus
