@@ -2,9 +2,9 @@
 
 ## Äriküsimus
 
-Eesmärk on uurida kas ja kuidas iganädalane ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Liiklusõnnetuste analüüsis on võimalik eristada ka maakonda.
-Ilma mõju hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid omavahel. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
-Analüüs ei tõesta otsest põhjuslikku seost, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
+Eesmärk on uurida, kas ja kuidas on ilm (temperatuur, sademed ja tuul) seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Surmajuhtumeid saab analüüsida ka vanuserühmiti, liiklusõnnetusi maakonniti või piirkonniti.
+Ilma "mõju" hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
+Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
 **Mõõdikud:**
 
@@ -15,8 +15,7 @@ Analüüs ei tõesta otsest põhjuslikku seost, vaid kirjeldab statistilisi seos
   Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
 3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
   liiklusõnnetus(valida gruppi), grupeeritud kuupäev + maakond järgi
-4. Surmajuhtude arv nädalas vanuse lõikes
-  surmade arv, grupeeritud aasta + nädal + vanuserühm järgi
+4. Surmajuhtude arv nädalas - päevas surnud inimeste arvu summa kokku ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti
 
 ## Arhitektuur
 
