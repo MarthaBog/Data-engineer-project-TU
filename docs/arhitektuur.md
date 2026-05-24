@@ -64,6 +64,7 @@ source3[Transpordiamet] --> ingest[Python]
 | Näidikulaua omanik | Ehitab näidikulaua ja seob selle äriküsimusega | Marta |
 
 ## Riskid
+(ilmselt selguvad töö käigus :))
 
 | Risk | Mõju | Maandus |
 |------|------|---------|
