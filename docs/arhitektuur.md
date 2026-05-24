@@ -4,11 +4,12 @@
 
 **NB! Kuna Algselt planeeritud andmed olid liiga staatilised, siis muutsime teemat**
 
-Uus eesmärk on uurida, kas ja kuidas ilm (temperatuur, sademed ja tuul) on seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Liiklusõnnetuste analüüsis on võimalik eristada ka maakonda.
-Ilma mõju hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid omavahel. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
-Analüüs ei tõesta otsest põhjuslikku seost, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
+Uus eesmärk on uurida, kas ja kuidas on ilm (temperatuur, sademed ja tuul) seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Surmajuhtumeid saab analüüsida ka vanuserühmiti, liiklusõnnetusi maakonniti või piirkonniti.
+Ilma "mõju" hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
+Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
-## Mõõdikud (ilmselt täpsustuvad veel töö käigus, sh valemid mõõdikute arvutamiseks)
+## Mõõdikud 
+(ilmselt täpsustuvad veel töö käigus, sh valemid mõõdikute arvutamiseks, mis peamiselt on summad ja keskmised üle nädalase ajaperioodi)
 
 1. Nädala keskmine temperatuur, päikesepaiste hulk ja sadmete hulk
 2. Äärmuslikud ilmastikutingimused:
