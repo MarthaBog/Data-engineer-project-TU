@@ -8,17 +8,14 @@ Uus eesmärk on uurida, kas ja kuidas ilm (temperatuur, sademed ja tuul) on seot
 Ilma mõju hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid omavahel. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
 Analüüs ei tõesta otsest põhjuslikku seost, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
-## Mõõdikud
+## Mõõdikud (ilmselt täpsustuvad veel töö käigus, sh valemid mõõdikute arvutamiseks)
 
-1. Nädala keskmine temperatuur, päikesepaiste hulk + Ööpäeva keskmine temperatuur
-  päikesepaiste kestus, grupeeritud aasta + nädal järgi
-2. Äärmuslikud ilmastikutingimused
-  Väga kuum päev = päev, mil maksimaalne temperatuur on üle 30°C
-  Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
-3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
-  liiklusõnnetus(valida gruppi), grupeeritud kuupäev + maakond järgi
-4. Surmajuhtude arv nädalas vanuse lõikes
-  surmade arv, grupeeritud aasta + nädal + vanuserühm järgi
+1. Nädala keskmine temperatuur, päikesepaiste hulk ja sadmete hulk
+2. Äärmuslikud ilmastikutingimused:
+   - Väga kuum päev = päev, mil maksimaalne temperatuur on üle 30°C
+   - Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
+3. Liiklusõnnetuste, vigastatute ja hukkunute arv nädalas maakonniti või piirkonniti
+4. Surmajuhtude arv nädalas vanuserühmiti
 
 
  
