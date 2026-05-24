@@ -4,19 +4,20 @@
 
 **NB! Kuna Algselt planeeritud andmed olid liiga staatilised, siis muutsime teemat**
 
-Uus eesmärk on uurida, kas ja kuidas on ilm (temperatuur, sademed ja tuul) seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Surmajuhtumeid saab analüüsida ka vanuserühmiti, liiklusõnnetusi maakonniti või piirkonniti.
+Uus eesmärk on uurida, **kas ja kuidas on ilm (temperatuur, sademed ja päikesepaiste hulk) seotud surmajuhtude ja liiklusõnnetuste arvuga**. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Surmajuhtumeid saab analüüsida ka vanuserühmiti, liiklusõnnetusi maakonniti või piirkonniti.
 Ilma "mõju" hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
 Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
 ## Mõõdikud 
-(ilmselt täpsustuvad veel töö käigus, sh valemid mõõdikute arvutamiseks, mis peamiselt on summad ja keskmised üle nädalase ajaperioodi)
+(ilmselt täpsustuvad veel töö käigus)
 
-1. Nädala keskmine temperatuur, päikesepaiste hulk ja sadmete hulk
+1. Nädala keskmine temperatuur, päikesepaiste hulk ja sadmete hulk (arvutatakse keskmine üle kõigi nädala jooksul kogutud mõõtmistulemuste, mõõtmisjaamad jagatakse maakonniti või piirkonniti)
 2. Äärmuslikud ilmastikutingimused:
    - Väga kuum päev = päev, mil maksimaalne temperatuur on üle 30°C
    - Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
-3. Liiklusõnnetuste, vigastatute ja hukkunute arv nädalas maakonniti või piirkonniti
-4. Surmajuhtude arv nädalas vanuserühmiti
+   (täpne valem veel arutlusel)
+3. Liiklusõnnetuste, vigastatute ja hukkunute arv nädalas maakonniti või piirkonniti (liiklusõnnetuste arvu leidmiseks loetakse kokku unikaalsete ridade arv nädalas maakonniti või piirkonniti, vigastatute ja hukkunute arvu leidmiseks summeeritakse vastavad arvud üle kõigi liiklusõnnetuste igal nädalal maakonniti või piirkonniti)
+4. Surmajuhtude arv nädalas vanuserühmiti (allikast tulevad surmade arvud nädalas vanuserühmiti, summeerime vajadusel)
 
 
  
@@ -24,7 +25,7 @@ Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi 
 
 | Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
 |---------|------|--------------|------|------|
-| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) ja soo kaupa | [Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2) |
+| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) | [Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2) |
 | Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** Eestis tunni ja jaama kaupa | [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused) |
 | Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, nendes vigastatute ja hukkunute arvu maakonniti | [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed) |
 
