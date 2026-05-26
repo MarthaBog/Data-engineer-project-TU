@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_week
+    description: Conformed ISO week dimension used across facts.
+  - name: dim_county
+    description: Standardized county dimension.
+  - name: dim_age_group
+    description: Standardized deaths age-group dimension.
+  - name: dim_sex
+    description: Standardized sex dimension.
+  - name: dim_weather_station
+    description: Weather station dimension with county assignment.
+  - name: fct_deaths_weekly
+    description: Weekly deaths fact at week, age-group, and sex grain.
+  - name: fct_traffic_weekly_county
+    description: Weekly county traffic accident fact.
+  - name: fct_weather_weekly_station
+    description: Weekly station weather fact for lineage and support analysis.
+  - name: fct_weather_weekly_county
+    description: Weekly county weather fact.
+  - name: mart_deaths_weather_weekly_national
+    description: Final weekly national deaths and weather mart.
+  - name: mart_traffic_weather_weekly_county
+    description: Final weekly county traffic and weather mart.

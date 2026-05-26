@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw tables loaded by the ingestion scripts.
+    schema: public
+    tables:
+      - name: surmad
+        description: Weekly deaths by year, week, sex, and age group.
+      - name: onnetused
+        description: Traffic accident events with date, county, injuries, and deaths.
+      - name: ilm
+        description: Daily weather observations in long format by station and metric.
+
+models:
+  - name: stg_surmad
+    description: Clean weekly deaths source with typed ISO week fields.
+  - name: stg_onnetused
+    description: Clean traffic accident events with parsed date and normalized county name.
+  - name: stg_ilm
+    description: Typed daily weather observations filtered to the core project metrics.

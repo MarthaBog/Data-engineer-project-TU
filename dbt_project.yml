@@ -1,0 +1,31 @@
+name: data_engineer_project_tu
+version: 1.0.0
+config-version: 2
+
+profile: data_engineer_project_tu
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+snapshot-paths: ["snapshots"]
+
+target-path: target
+clean-targets:
+  - target
+  - dbt_packages
+  - logs
+
+models:
+  data_engineer_project_tu:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  data_engineer_project_tu:
+    +quote_columns: false

@@ -75,10 +75,36 @@ docker compose up -d --build
 
 # 4. [Vabatahtlik: käivita sissevõtt käsitsi esimesel korral]
 # docker compose exec pipeline python scripts/run_pipeline.py run-all
+
+# 5. Käivita dbt transformatsioon
+docker compose --profile dbt run --rm dbt seed
+docker compose --profile dbt run --rm dbt run
 ```
 
-Airflow (kui kasutatakse): http://localhost:8080 (kasutaja: airflow / parool: airflow)
-Näidikulaud: http://localhost:[PORT]
+## dbt transformatsioonikiht
+
+dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
+- `surmad`
+- `onnetused`
+- `ilm`
+
+Olulised väljundid:
+- `fct_deaths_weekly`
+- `fct_traffic_weekly_county`
+- `fct_weather_weekly_county`
+- `mart_deaths_weather_weekly_national`
+- `mart_traffic_weather_weekly_county`
+
+Struktuur:
+- `models/staging` puhastab ja seab paremad andetüübid
+- `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
+- `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
+- `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
+
+Konteinerite rollid:
+- `db` - andmebaas/ladu
+- `python` - toorandmete laadija
+- `dbt` - transformatsioonikiht
 
 ## Saladused ja konfiguratsioon
 
@@ -149,12 +175,24 @@ Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 .
 ├── README.md
 ├── compose.yml
+├── .dockerignore
 ├── .env.example
 ├── .gitignore
+├── dbt_project.yml
+├── profiles.yml
+├── dbt-requirements.txt
+├── docker/
+│   └── dbt.Dockerfile
+├── macros/
+├── models/
+│   ├── staging/
+│   ├── intermediate/
+│   └── marts/
+├── seeds/
 ├── docs/
 │   ├── arhitektuur.md      ← nädal 1 väljund
 │   └── progress.md         ← nädal 2 väljund
-└── ...                     ← ülejäänud projektifailid
+└── scripts/
 ```
 
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
@@ -173,6 +211,6 @@ Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 | Nimi | Roll |
 |------|------|
 | [Marta Bogatõr] | [Roll] |
-| [Nimi 2] | [Roll] |
+| [Mark Robin Kalder] | [Roll] |
 | [Nimi 3] | [Roll] |
 | [Nimi 4] | [Roll — vabatahtlik] |

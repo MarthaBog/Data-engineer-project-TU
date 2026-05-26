@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: county_seed
+    description: Canonical county dimension seed used by weather and traffic models.
+  - name: station_county_map
+    description: Weather station to county mapping built from the live source station list.
