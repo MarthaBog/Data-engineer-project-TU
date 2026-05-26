@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # entrypoint.sh - Run all data download scripts sequentially
 # This script is executed when the Docker container starts
 
