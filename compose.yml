@@ -96,29 +96,26 @@ services:
     restart: "no"
     profiles: ["dbt"]
 
+
   # ========================================================================
-  # OPTIONAL: Dashboard Service (Streamlit - commented out)
+  # Superset Dashboard Service
   # ========================================================================
-  # Uncomment to add a web dashboard for data visualization
-  # dashboard:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.app
-  #   container_name: ilm-dashboard
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     DB_HOST: db
-  #     DB_PORT: "5432"
-  #     DB_USER: ${POSTGRES_USER}
-  #     DB_PASSWORD: ${POSTGRES_PASSWORD}
-  #     DB_NAME: ${POSTGRES_DB}
-  #   depends_on:
-  #     db:
-  #       condition: service_healthy
-  #   ports:
-  #     - "${DASHBOARD_PORT_HOST:-8501}:8501"
-  #   command: ["streamlit", "run", "dashboard/app.py", "--server.address=0.0.0.0"]
+  superset:
+    build:
+      context: .
+      dockerfile: docker/superset.Dockerfile
+    container_name: ilm-superset
+    env_file:
+      - .env
+    environment:
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-change-me}
+    ports:
+      - "8088:8088"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - superset_home:/app/superset_home
 
 # ============================================================================
 # Named Volumes
@@ -126,3 +123,4 @@ services:
 # pgdata: Persistent storage for PostgreSQL database
 volumes:
   pgdata:
+  superset_home:
