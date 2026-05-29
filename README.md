@@ -107,6 +107,7 @@ Konteinerite rollid:
 - `db` - andmebaas/ladu
 - `python` - toorandmete laadija
 - `dbt` - transformatsioonikiht
+- 'superset' - andmete visualiseerimiseks
 
 ## Saladused ja konfiguratsioon
 
