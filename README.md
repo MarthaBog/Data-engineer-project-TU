@@ -89,11 +89,13 @@ dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
 - `ilm`
 
 Olulised väljundid:
-- `fct_deaths_weekly`
-- `fct_traffic_weekly_county`
-- `fct_weather_weekly_county`
-- `mart_deaths_weather_weekly_national`
-- `mart_traffic_weather_weekly_county`
+| Tabel | Kirjeldus |
+|-------|-----------|
+|- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
+|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
+|- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
+|- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
+|- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
 
 Struktuur:
 - `models/staging` puhastab ja seab paremad andetüübid
