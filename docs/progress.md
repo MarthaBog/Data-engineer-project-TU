@@ -54,11 +54,11 @@ z = (x - keskmine väärtus) / standardhälve
 
 ## Kontrollpunkt
 
-Käsk, millega saab kontrollida, et töövoog töötab:
+<!-- Käsk, millega saab kontrollida, et töövoog töötab:
 
 ```bash
 docker compose exec pipeline python scripts/run_pipeline.py check
-```
+``` -->
 
 Käsk, millega saab kontrollida, et töövoog töötab:
 ```bash
