@@ -16,7 +16,7 @@
 - Superset dashboard:
     - On valmis: Superseti visualiseerimiskeskkond ja esimene interaktiivne näidikulaud. 
        - Superset lisati Docker Compose faili eraldi teenusena ja ühendati PostgreSQL andmebaasiga 'ilm_surm_liiklus'. Kuna Superseti Docker image'is puudus PostgreSQL ühenduse jaoks vajalik draiver, loodi eraldi superset.Dockerfile, kuhu lisati 'psycopg2-binary'(ühendab baas ja Supeset).
-    - Supersetis kasutatakse kaks mart-tabeleid:
+    - Supersetis kasutatakse kaks mart-tabelit:
         - 'public.mart_deaths_weather_weekly_nationa'`
         - 'public.mart_traffic_weather_weekly_county'
     - Lisaks loodi SQL Labis virtuaalne dataset, kus surmajuhtumid, liiklusõnnetused ja ilmastikunäitajad ühendati nädalapõhiseks analüüsiks. Selle põhjal koostati standardiseeritud nädalaste kõrvalekallete graafik.
@@ -44,13 +44,13 @@ z = (x - keskmine väärtus) / standardhälve
 ## Järgmised sammud
 
 - Ajastamine
-- Dashboardide sisu ülevaatamine
+- Näidikulaua sisu ülevaatamine
 - Andmekvaliteedi test
 
 ## Mis takistab
 
 - Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada
-- Dashboardil standardiseeritud temperatuur käitub tagurpidi
+- Näidikulaual standardiseeritud temperatuur käitub tagurpidi
 
 ## Kontrollpunkt
 
