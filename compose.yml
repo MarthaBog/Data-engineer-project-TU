@@ -100,7 +100,7 @@ services:
   # ========================================================================
   # Superset Dashboard Service
   # ========================================================================
-  superset:
+    superset:
     build:
       context: .
       dockerfile: docker/superset.Dockerfile
@@ -109,6 +109,11 @@ services:
       - .env
     environment:
       SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-change-me}
+      SUPERSET_ADMIN_USERNAME: ${SUPERSET_ADMIN_USERNAME:-project}
+      SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:-project}
+      SUPERSET_ADMIN_EMAIL: ${SUPERSET_ADMIN_EMAIL:-project@example.com}
+      SUPERSET_ADMIN_FIRSTNAME: ${SUPERSET_ADMIN_FIRSTNAME:-Project}
+      SUPERSET_ADMIN_LASTNAME: ${SUPERSET_ADMIN_LASTNAME:-Admin}
     ports:
       - "8088:8088"
     depends_on:
@@ -116,6 +121,18 @@ services:
         condition: service_healthy
     volumes:
       - superset_home:/app/superset_home
+    command: >
+      /bin/sh -c "
+      superset db upgrade &&
+      superset fab create-admin
+        --username $${SUPERSET_ADMIN_USERNAME}
+        --firstname $${SUPERSET_ADMIN_FIRSTNAME}
+        --lastname $${SUPERSET_ADMIN_LASTNAME}
+        --email $${SUPERSET_ADMIN_EMAIL}
+        --password $${SUPERSET_ADMIN_PASSWORD} || true &&
+      superset init &&
+      superset run -h 0.0.0.0 -p 8088
+      "
 
 # ============================================================================
 # Named Volumes
