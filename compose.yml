@@ -100,7 +100,7 @@ services:
   # ========================================================================
   # Superset Dashboard Service
   # ========================================================================
-    superset:
+  superset:
     build:
       context: .
       dockerfile: docker/superset.Dockerfile
