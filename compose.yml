@@ -97,42 +97,70 @@ services:
     profiles: ["dbt"]
 
 
+    # ========================================================================
+  # Superset metadata database
   # ========================================================================
-  # Superset Dashboard Service
+  superset-db:
+    image: postgres:16
+    container_name: ilm-superset-db
+    environment:
+      POSTGRES_USER: ${SUPERSET_DB_USER}
+      POSTGRES_PASSWORD: ${SUPERSET_DB_PASSWORD}
+      POSTGRES_DB: ${SUPERSET_DB_NAME}
+    volumes:
+      - superset_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${SUPERSET_DB_USER} -d ${SUPERSET_DB_NAME}"]
+      interval: 5s
+      retries: 10
+
+  # ========================================================================
+  # Superset initialization: migrations + admin user
+  # ========================================================================
+  superset-init:
+    build:
+      context: .
+      dockerfile: docker/superset.Dockerfile
+    container_name: ilm-superset-init
+    depends_on:
+      superset-db:
+        condition: service_healthy
+    volumes:
+      - ./superset_config.py:/app/superset_config.py
+      - superset_home:/app/superset_home
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
+      DATABASE_URI: "postgresql+psycopg2://${SUPERSET_DB_USER}:${SUPERSET_DB_PASSWORD}@superset-db:5432/${SUPERSET_DB_NAME}"
+      SECRET_KEY: ${SUPERSET_SECRET_KEY}
+      ADMIN_USERNAME: ${SUPERSET_ADMIN_USER}
+      ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD}
+      ADMIN_EMAIL: ${SUPERSET_ADMIN_EMAIL}
+    command:
+      - /bin/sh
+      - -c
+      - "superset db upgrade && superset fab create-admin --username $${ADMIN_USERNAME} --firstname Project --lastname Admin --email $${ADMIN_EMAIL} --password $${ADMIN_PASSWORD} || true && superset init"
+
+  # ========================================================================
+  # Superset web application
   # ========================================================================
   superset:
     build:
       context: .
       dockerfile: docker/superset.Dockerfile
     container_name: ilm-superset
-    env_file:
-      - .env
-    environment:
-      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-change-me}
-      SUPERSET_ADMIN_USERNAME: ${SUPERSET_ADMIN_USERNAME:-project}
-      SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:-project}
-      SUPERSET_ADMIN_EMAIL: ${SUPERSET_ADMIN_EMAIL:-project@example.com}
-      SUPERSET_ADMIN_FIRSTNAME: ${SUPERSET_ADMIN_FIRSTNAME:-Project}
-      SUPERSET_ADMIN_LASTNAME: ${SUPERSET_ADMIN_LASTNAME:-Admin}
+    depends_on:
+      superset-init:
+        condition: service_completed_successfully
     ports:
       - "8088:8088"
-    depends_on:
-      db:
-        condition: service_healthy
     volumes:
+      - ./superset_config.py:/app/superset_config.py
       - superset_home:/app/superset_home
-    command: >
-      /bin/sh -c "
-      superset db upgrade &&
-      superset fab create-admin
-        --username $${SUPERSET_ADMIN_USERNAME}
-        --firstname $${SUPERSET_ADMIN_FIRSTNAME}
-        --lastname $${SUPERSET_ADMIN_LASTNAME}
-        --email $${SUPERSET_ADMIN_EMAIL}
-        --password $${SUPERSET_ADMIN_PASSWORD} || true &&
-      superset init &&
-      superset run -h 0.0.0.0 -p 8088
-      "
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
+      DATABASE_URI: "postgresql+psycopg2://${SUPERSET_DB_USER}:${SUPERSET_DB_PASSWORD}@superset-db:5432/${SUPERSET_DB_NAME}"
+      SECRET_KEY: ${SUPERSET_SECRET_KEY}
+    command: ["/app/docker/entrypoints/run-server.sh"]
 
 # ============================================================================
 # Named Volumes
@@ -140,4 +168,5 @@ services:
 # pgdata: Persistent storage for PostgreSQL database
 volumes:
   pgdata:
+  superset_db:
   superset_home:
