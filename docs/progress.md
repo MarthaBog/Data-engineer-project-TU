@@ -57,8 +57,6 @@ z = (x - keskmine väärtus) / standardhälve
 Käsk, millega saab kontrollida, et töövoog töötab:
 
 ```bash
-# [Lisa siia käsk, mis näitab, et andmed liiguvad allikast näidikulauani]
-# Näiteks:
 docker compose exec pipeline python scripts/run_pipeline.py check
 ```
 
