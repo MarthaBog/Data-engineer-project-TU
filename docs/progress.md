@@ -49,8 +49,8 @@ z = (x - keskmine väärtus) / standardhälve
 
 ## Mis takistab
 
-<!-- - [Probleem 1 — näiteks: API tagastab vigaseid väärtusi ühes linnas]
-- [Probleem 2 — või: "Praegu pole blokeerivaid probleeme"] -->
+- [Probleem 1 — näiteks: Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada]
+- [Probleem 2 — või: "Praegu pole blokeerivaid probleeme"]
 
 ## Kontrollpunkt
 
