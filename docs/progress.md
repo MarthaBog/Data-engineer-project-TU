@@ -1,7 +1,5 @@
 # Edenemisraport
 
-<!-- > **Juhend:** See fail on projektitöö teise nädala väljund. Uuenda lühidalt iga esitamise eel. Kustuta see juhendrida. -->
-
 ## Mis on valmis
 
 - [X] Docker Compose käivitab kõik teenused
@@ -38,8 +36,6 @@ Standardiseerimise jaoks kasutati z-score põhimõtet:
 ```
 z = (x - keskmine väärtus) / standardhälve
 ```
-
-
 
 ## Järgmised sammud
 
@@ -84,6 +80,4 @@ docker compose up -d
 http://localhost:8088
 või täpsem:
 http://localhost:8088/superset/dashboard/1/?native_filters_key=dZOf-ujAgZk
-
-
-<!-- Oodatav tulemus: [Kirjelda, mida töötav süsteem väljastab] -->
+![alt text](image.png)
