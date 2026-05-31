@@ -4,14 +4,14 @@
 
 ## Mis on valmis
 
-- [ ] Docker Compose käivitab kõik teenused
-- [ ] Andmeid saadakse allikast kätte
-- [ ] Andmed laetakse `staging` kihti
-- [ ] Vähemalt üks transformatsioon toimib
-- [ ] Vähemalt üks näidikulaud on nähtaval
-- [ ] Vähemalt üks andmekvaliteedi test läbib
+- [X] Docker Compose käivitab kõik teenused
+- [X] Andmeid saadakse allikast kätte
+- [X] Andmed laetakse `staging` kihti
+- [X] Vähemalt üks transformatsioon toimib
+- [X] Vähemalt üks näidikulaud on nähtaval
+- [X] Vähemalt üks andmekvaliteedi test läbib
 
-Ülekanne ja transformeerimine on valmis ka
+Ülekanne ja transformeerimine on valmis.
 
 - Superset dashboard:
     - On valmis: Superseti visualiseerimiskeskkond ja esimene interaktiivne näidikulaud. 
@@ -43,9 +43,9 @@ z = (x - keskmine väärtus) / standardhälve
 
 ## Järgmised sammud
 
-<!-- - [Esimene tegevus, mis ees ootab]
-- [Teine tegevus]
-- [Kolmas tegevus] -->
+- Ajastamine
+- Dashboardide sisu ülevaatamine
+- Andmekvaliteedi test
 
 ## Mis takistab
 
