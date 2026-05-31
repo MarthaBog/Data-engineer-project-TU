@@ -11,7 +11,7 @@
 - [X] Vähemalt üks näidikulaud on nähtaval
 - [X] Vähemalt üks andmekvaliteedi test läbib
 
-Ülekanne ja transformeerimine on valmis.
+Ülekanne ja transformeerimine on valmis, kogu projekti töövoog on läbi tehtud, aga projekt ei käivitu veel automaatselt.
 
 - Superset dashboard:
     - On valmis: Superseti visualiseerimiskeskkond ja esimene interaktiivne näidikulaud. 
