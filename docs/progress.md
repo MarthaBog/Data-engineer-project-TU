@@ -11,6 +11,8 @@
 - [ ] Vähemalt üks näidikulaud on nähtaval
 - [ ] Vähemalt üks andmekvaliteedi test läbib -->
 
+Ülekanne ja transformeerimine on valmis ka
+
 - Superset dashboard:
     - On valmis: Superseti visualiseerimiskeskkond ja esimene interaktiivne näidikulaud. 
        - Superset lisati Docker Compose faili eraldi teenusena ja ühendati PostgreSQL andmebaasiga 'ilm_surm_liiklus'. Kuna Superseti Docker image'is puudus PostgreSQL ühenduse jaoks vajalik draiver, loodi eraldi superset.Dockerfile, kuhu lisati 'psycopg2-binary'(ühendab baas ja Supeset).
