@@ -49,18 +49,18 @@ z = (x - keskmine väärtus) / standardhälve
 
 ## Mis takistab
 
-- [Probleem 1 — näiteks: Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada]
-- [Probleem 2 — või: "Praegu pole blokeerivaid probleeme"]
+- Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada
+- Dashboardil standardiseeritud temperatuur käitub tagurpidi
 
 ## Kontrollpunkt
 
-<!-- Käsk, millega saab kontrollida, et töövoog töötab:
+Käsk, millega saab kontrollida, et töövoog töötab:
 
 ```bash
 # [Lisa siia käsk, mis näitab, et andmed liiguvad allikast näidikulauani]
 # Näiteks:
 docker compose exec pipeline python scripts/run_pipeline.py check
-``` -->
+```
 
 Käsk, millega saab kontrollida, et töövoog töötab:
 ```bash
