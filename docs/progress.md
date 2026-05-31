@@ -14,6 +14,7 @@
 - Superset dashboard:
     - On valmis: Superseti visualiseerimiskeskkond ja esimene interaktiivne näidikulaud. 
        - Superset lisati Docker Compose faili eraldi teenusena ja ühendati PostgreSQL andmebaasiga 'ilm_surm_liiklus'. Kuna Superseti Docker image'is puudus PostgreSQL ühenduse jaoks vajalik draiver, loodi eraldi superset.Dockerfile, kuhu lisati 'psycopg2-binary'(ühendab baas ja Supeset).
+       - Superseti jaoks loodi eraldi metadata-andmebaas superset, kus hoitakse Superseti sisemisi objekte, näiteks kasutajaid, andmebaasiühendusi, datasette, graafikuid ja näidikulaudu.
     - Supersetis kasutatakse kaks mart-tabelit:
         - 'public.mart_deaths_weather_weekly_nationa'`
         - 'public.mart_traffic_weather_weekly_county'
@@ -71,13 +72,23 @@ docker compose exec superset python -c "import psycopg2; print('psycopg2 ok')"
 ```
 
 
-Superseti avamiseks:
-1) Tuleb käivitada Docker Compose teenused:
+**Superseti avamiseks** (igas arvutis eraldi, cloud ei ole):
 ```bash
-docker compose up -d 
+docker compose up -d --build
+docker compose --profile dbt run --rm dbt seed
+docker compose --profile dbt run --rm dbt run
 ```
-2) Ja avada Superseti linki (Parool ja kasutajatunnus failis .env):
+
+Superset link (parool failis ".env")
 http://localhost:8088
-või täpsem:
-http://localhost:8088/superset/dashboard/1/?native_filters_key=dZOf-ujAgZk
-![alt text](image.png)
+
+Supersetis avada:
+**Settings → Database Connections → Ilm Surm Liiklus PostgreSQL → Edit**
+
+Sisesta SQLAlchemy URI:
+**postgresql://projekt:pass@db:5432/ilm_surm_liiklus**
+
+Import dashboard:
+Dashboards → Import → lisada zip-file kaustast "superset_exports"
+
+
