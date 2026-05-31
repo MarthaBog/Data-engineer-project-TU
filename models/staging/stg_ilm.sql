@@ -18,6 +18,8 @@ filtered as (
     from typed
     where metric_name in (
         'Air temperature (daily avg)',
+        'Air temperature (daily max)',
+        'Air temperature (daily min)',
         'Precipitation (daily sum)',
         'Wind speed (daily avg)',
         'Sunshine duration (daily sum)'

@@ -1,6 +1,6 @@
 with sexes as (
     select distinct sex_label
-    from {{ ref('int_surmad_weekly') }}
+    from {{ ref('stg_surmad') }}
 )
 select
     row_number() over (

@@ -18,8 +18,8 @@ models:
   - name: fct_weather_weekly_station
     description: Weekly station weather fact for lineage and support analysis.
   - name: fct_weather_weekly_county
-    description: Weekly county weather fact.
+    description: Weekly county weather fact with weekly feature columns.
   - name: mart_deaths_weather_weekly_national
-    description: Final weekly national deaths and weather mart.
+    description: Final weekly national deaths and weather mart with prior-year same-week comparisons.
   - name: mart_traffic_weather_weekly_county
-    description: Final weekly county traffic and weather mart.
+    description: Final weekly county traffic and weather mart with prior-year same-week comparisons.
