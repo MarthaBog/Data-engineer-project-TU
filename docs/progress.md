@@ -46,7 +46,7 @@ z = (x - keskmine väärtus) / standardhälve
 
 ## Mis takistab
 
-- Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada
+- Ingel ja Hetil ei õnnestu Superseti dashboardi käima saada. **EDIT (1.06 hommik):** Heti sai tööle ja Mark ka. Inge proovib kolmapäeval. Midagi oli superseti seadetes puudu.
 - Näidikulaual standardiseeritud temperatuur käitub tagurpidi
 
 ## Kontrollpunkt
