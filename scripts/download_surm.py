@@ -22,8 +22,8 @@ PG_USER = os.getenv("POSTGRES_USER", "projekt")
 PG_PASS = os.getenv("POSTGRES_PASSWORD", "pass")
 PG_TABLE = os.getenv("SURMAD_TABLE", "surmad")
 
-# Only download data from 2017 onwards
-MIN_YEAR = "2017"
+# Only download data from 2020 onwards
+MIN_YEAR = "2020"
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -39,13 +39,13 @@ def get_meta() -> Dict[str, Any]:
     return r.json()
 
 def build_full_query(meta: Dict[str, Any]) -> Dict[str, Any]:
-    """Build query requesting data from 2017 onwards only."""
+    """Build query requesting data from 2020 onwards only."""
     variables = meta.get("variables", [])
     query = []
     for v in variables:
         code = v.get("code")
         
-        # For Vaatlusperiood (year), restrict to 2017 onwards
+        # For Vaatlusperiood (year), restrict to 2020 onwards
         
         if code == "Vaatlusperiood":
             values = v.get("values", [])
@@ -188,7 +188,7 @@ def import_to_postgres(json_data: Dict[str, Any]):
     logging.info(f"Successfully imported {row_count} rows into {PG_TABLE}")
 
 def main():
-    """Main workflow: fetch JSON → parse → stream to PostgreSQL (2017+ only)."""
+    """Main workflow: fetch JSON → parse → stream to PostgreSQL (2020+ only)."""
     try:
         logging.info(f"Fetching mortality data from {MIN_YEAR} onwards...")
         meta = get_meta()
