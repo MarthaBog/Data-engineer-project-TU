@@ -1,6 +1,6 @@
 with age_groups as (
     select distinct age_group_label
-    from {{ ref('int_surmad_weekly') }}
+    from {{ ref('stg_surmad') }}
 )
 select
     row_number() over (

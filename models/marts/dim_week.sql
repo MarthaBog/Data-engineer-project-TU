@@ -1,9 +1,9 @@
 with all_weeks as (
-    select week_key, iso_year, iso_week from {{ ref('int_surmad_weekly') }}
+    select week_key, iso_year, iso_week from {{ ref('stg_surmad') }}
     union
     select week_key, iso_year, iso_week from {{ ref('int_onnetused_weekly_county') }}
     union
-    select week_key, iso_year, iso_week from {{ ref('int_ilm_weekly_station') }}
+    select week_key, iso_year, iso_week from {{ ref('int_ilm_weekly_county') }}
 )
 select distinct
     week_key,

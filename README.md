@@ -79,6 +79,10 @@ docker compose up -d --build
 # 5. Käivita dbt transformatsioon
 docker compose --profile dbt run --rm dbt seed
 docker compose --profile dbt run --rm dbt run
+
+# 6. Serveeri dbt docs aadressil http://localhost:8080
+docker compose --profile dbt run --rm --service-ports dbt docs generate
+docker compose --profile dbt run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080
 ```
 
 ## dbt transformatsioonikiht

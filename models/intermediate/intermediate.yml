@@ -1,17 +1,23 @@
 version: 2
 
 models:
-  - name: int_surmad_weekly
-    description: National weekly deaths at week, age-group, and sex grain.
-  - name: int_onnetused_daily
-    description: Clean accident events ready for weekly county aggregation.
   - name: int_onnetused_weekly_county
     description: Weekly county traffic accident aggregates.
+  - name: int_onnetused_weekly_county_hist
+    description: Historical same-week traffic baselines by county using prior years only.
   - name: int_ilm_daily_station
     description: One row per station-day with weather metrics pivoted wide.
+  - name: int_ilm_daily_county
+    description: One row per county-day with station weather averaged to the county grain.
   - name: int_ilm_weekly_station
     description: Weekly weather aggregates by station.
   - name: int_ilm_weekly_county
-    description: Weekly county weather aggregates built from station mapping.
+    description: Weekly county weather features including weather extremes and coverage counts.
+  - name: int_ilm_weekly_county_hist
+    description: Historical same-week county weather baselines using prior years only.
   - name: int_ilm_weekly_national
-    description: Weekly national weather aggregates built from station mapping.
+    description: Weekly national weather features aggregated from county-day observations.
+  - name: int_ilm_weekly_national_hist
+    description: Historical same-week national weather baselines using prior years only.
+  - name: int_surmad_weekly_hist
+    description: Historical same-week deaths baselines by age group and sex using prior years only.
