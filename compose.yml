@@ -2,6 +2,7 @@
 # Services: PostgreSQL database + Python data loader
 # 
 # Quick start:
+#   cp .env.example .env
 #   docker compose up -d --build
 #   docker compose ps
 #   docker compose exec db psql -U projekt -d ilm_surm_liiklus
