@@ -80,12 +80,14 @@ docker compose up -d --build
 docker compose --profile dbt run --rm dbt seed
 docker compose --profile dbt run --rm dbt run
 
-# 6. Serveeri dbt docs aadressil http://localhost:8080
+# 6. [Valikuline] Serveeri dbt docs aadressil http://localhost:8080
 docker compose --profile dbt run --rm --service-ports dbt docs generate
 docker compose --profile dbt run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080
 ```
 
 ## dbt transformatsioonikiht
+
+Täpsem kirjeldus kihtidest, granulaarsustest, metoodikast ja piirangutest on failis [`docs/dbt_transformatsioonikiht.md`](docs/dbt_transformatsioonikiht.md).
 
 dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
 - `surmad`
