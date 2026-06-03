@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# download_liiklus.py - Download only NEW traffic accident data from 2017-01-01 onwards
+# download_liiklus.py - Download only NEW traffic accident data from 2020-01-01 onwards
 
 import os
 import requests
@@ -22,8 +22,8 @@ PG_USER = os.getenv("POSTGRES_USER", "projekt")
 PG_PASS = os.getenv("POSTGRES_PASSWORD", "pass")
 PG_TABLE = "onnetused"
 
-# Minimum date filter: only import data from 2017-01-01 onwards
-MIN_DATE = "2017-01-01"
+# Minimum date filter: only import data from 2020-01-01 onwards
+MIN_DATE = "2020-01-01"
 
 def get_download_url():
     """Fetch metadata and extract CSV download URL."""
