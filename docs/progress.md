@@ -59,6 +59,7 @@ docker compose exec pipeline python scripts/run_pipeline.py check
 
 Käsk, millega saab kontrollida, et töövoog töötab:
 ```bash
+cp .env.example .env              # kopeerime alustuseks saladused :) 
 docker compose up -d --build
 docker compose ps
 ```
@@ -74,6 +75,7 @@ docker compose exec superset python -c "import psycopg2; print('psycopg2 ok')"
 
 **Superseti avamiseks** (igas arvutis eraldi, cloud ei ole):
 ```bash
+cp .env.example .env              # kopeerime alustuseks saladused :) 
 docker compose up -d --build
 docker compose --profile dbt run --rm dbt seed
 docker compose --profile dbt run --rm dbt run
