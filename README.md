@@ -129,8 +129,12 @@ Vajalikud muutujad:
 
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
 
-**onnetused**
-   
+**Liikluse andmed**
+Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed.
+Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
+Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
+
+Näide andmetest:
 | id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
 |----|------------|----------|---------------|-------------|----------|------------|
 |  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
@@ -138,7 +142,13 @@ Vajalikud muutujad:
  | 3 | 2014-01-25 | 21:06:00 | Harju maakond | Tallinn     |        0 |          1|
 |  4 | 2022-06-24 | 02:25:00 | Harju maakond | Tallinn     |        0 |          1|
 
-**surmad**
+**Surmad**
+
+Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).
+Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
+Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
+
+Tabelist näide:
 
 | id |   Näitaja   |     Nädal     | Vaatlusperiood |      Sugu       |     Vanuserühm     |  value  |
 |----|-------------|---------------|----------------|-----------------|--------------------|---------|
@@ -147,8 +157,14 @@ Vajalikud muutujad:
 |  3 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 65-79              | 4945.0 |
 |  4 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 80 ja vanemad      | 7436.0 |
 
-**ilm**
+**Ilma andmed**
 
+
+Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis.
+Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
+Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
+
+Tabeli esimesed read:
 | id | jaam_kood | jaam_nimi | aasta | kuu | paev | vaartus | element_kood |           element_nimi_eng            | element_yhik_eng |           avaandmed_ts           |
 |----|-----------|-----------|-------|-----|------|---------|--------------|---------------------------------------|------------------|----------------------------------|
 |  1 | AJJOGE01  | Jõgeva    | 2015  | 1   | 1    | 1010.9  | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506376+02:00|
