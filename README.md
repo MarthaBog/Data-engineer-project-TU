@@ -212,11 +212,24 @@ Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 │   ├── staging/
 │   ├── intermediate/
 │   └── marts/
+├── orchestrator/
+│   ├── crontab
+│   ├── Dockerfile
+│   ├── orchkestrator.py
+│   └── run.sh
 ├── seeds/
 ├── docs/
 │   ├── arhitektuur.md      ← nädal 1 väljund
 │   └── progress.md         ← nädal 2 väljund
 └── scripts/
+│   ├── Dockerfile
+│   ├── download_ilm.py
+│   ├── download_liiklus.py
+│   ├── download_surm.py
+│   ├── entrypoint.sh
+│   └── requirements.txt
+
+
 ```
 
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
