@@ -1,0 +1,1 @@
+*/5 * * * *  bash /app/orchestrator/run.sh >> /var/log/orchestrator.log 2>&1
