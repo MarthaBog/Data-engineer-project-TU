@@ -63,12 +63,11 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 ```bash
 # 1. Klooni repo ja liigu kausta
-git clone <repo-url>
-cd <projekti-kaust>
+git clone https://github.com/MarthaBog/Data-engineer-project-TU
+cd Data-engineer-project-TU
 
 # 2. Kopeeri keskkonnamuutujad
 cp .env.example .env
-# Muuda .env failis paroolid ja muud seaded vastavalt vajadusele
 
 # 3. Käivita teenused
 docker compose up -d --build
