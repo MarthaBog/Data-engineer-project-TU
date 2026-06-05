@@ -54,7 +54,44 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 | Andmehoidla | PostgreSQL |
 | Näidikulaud | [Superset] |
 
+## Projekti struktuur
 
+```
+.
+├── README.md
+├── compose.yml
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── dbt_project.yml
+├── profiles.yml
+├── dbt-requirements.txt
+├── docker/
+│   └── dbt.Dockerfile
+├── macros/
+├── models/
+│   ├── staging/
+│   ├── intermediate/
+│   └── marts/
+├── orchestrator/
+│   ├── crontab
+│   ├── Dockerfile
+│   ├── orchkestrator.py
+│   └── run.sh
+├── seeds/
+├── docs/
+│   ├── arhitektuur.md      ← nädal 1 väljund
+│   └── progress.md         ← nädal 2 väljund
+└── scripts/
+│   ├── Dockerfile
+│   ├── download_ilm.py
+│   ├── download_liiklus.py
+│   ├── download_surm.py
+│   ├── entrypoint.sh
+│   └── requirements.txt
+
+
+```
 
 ## Käivitamine
 
@@ -87,36 +124,6 @@ Import dashboard:
 Dashboards → Import → lisada zip-file kaustast "superset_exports"
 ```
 
-## dbt transformatsioonikiht
-
-Täpsem kirjeldus kihtidest, granulaarsustest, metoodikast ja piirangutest on failis [`docs/dbt_transformatsioonikiht.md`](docs/dbt_transformatsioonikiht.md).
-
-dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
-- `surmad`
-- `onnetused`
-- `ilm`
-
-Olulised väljundid:
-| Tabel | Kirjeldus |
-|-------|-----------|
-|- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
-|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
-|- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
-|- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
-|- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
-
-Struktuur:
-- `models/staging` puhastab ja seab paremad andetüübid
-- `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
-- `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
-- `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
-
-Konteinerite rollid:
-- `db` - andmebaas/ladu
-- `python` - toorandmete laadija
-- `orchestrator` - andmetorude orkestreerimine
-- `dbt` - transformatsioonikiht
-- `superset` - andmete visualiseerimiseks
 
 ## Saladused ja konfiguratsioon
 
@@ -197,44 +204,38 @@ Projekt kontrollib järgmist:
 
 Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 
-## Projekti struktuur
 
-```
-.
-├── README.md
-├── compose.yml
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── dbt_project.yml
-├── profiles.yml
-├── dbt-requirements.txt
-├── docker/
-│   └── dbt.Dockerfile
-├── macros/
-├── models/
-│   ├── staging/
-│   ├── intermediate/
-│   └── marts/
-├── orchestrator/
-│   ├── crontab
-│   ├── Dockerfile
-│   ├── orchkestrator.py
-│   └── run.sh
-├── seeds/
-├── docs/
-│   ├── arhitektuur.md      ← nädal 1 väljund
-│   └── progress.md         ← nädal 2 väljund
-└── scripts/
-│   ├── Dockerfile
-│   ├── download_ilm.py
-│   ├── download_liiklus.py
-│   ├── download_surm.py
-│   ├── entrypoint.sh
-│   └── requirements.txt
+## dbt transformatsioonikiht
 
+Täpsem kirjeldus kihtidest, granulaarsustest, metoodikast ja piirangutest on failis [`docs/dbt_transformatsioonikiht.md`](docs/dbt_transformatsioonikiht.md).
 
-```
+dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
+- `surmad`
+- `onnetused`
+- `ilm`
+
+Olulised väljundid:
+| Tabel | Kirjeldus |
+|-------|-----------|
+|- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
+|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
+|- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
+|- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
+|- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
+
+Struktuur:
+- `models/staging` puhastab ja seab paremad andetüübid
+- `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
+- `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
+- `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
+
+Konteinerite rollid:
+- `db` - andmebaas/ladu
+- `python` - toorandmete laadija
+- `orchestrator` - andmetorude orkestreerimine
+- `dbt` - transformatsioonikiht
+- `superset` - andmete visualiseerimiseks
+
 
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
 
