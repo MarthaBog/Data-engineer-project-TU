@@ -67,7 +67,7 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 .
 ├── README.md                     ← projekti üldine kirjeldus ja kasutusjuhend
 ├── compose.yml                   ← Docker Compose, mis käivitab kogu andmetoru teenused
-├── .dockerignore                 ← välistab mittevajalikud failid Dockerisse kopeerimisest
+├── .dockerignore                 ← defineerib peidetud failid
 ├── .env.example                  ← näidis keskkonnamuutujate fail projekti käivitamiseks
 ├── .gitignore                    ← välistab mittevajalikud failid GitHubi commitidest
 ├── dbt_project.yml               ← dbt projekti konfiguratsioon ja mudelite struktuur
