@@ -35,13 +35,6 @@ source3[Transpordiamet] --> ingest[Python]
 Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 
-## Andmeallikad
-
-| Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
-|---------|-------|--------------|------|------|
-| Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) | [Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2) |
-| Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** Eestis tunni ja jaama kaupa | [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused) |
-| Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, nendes vigastatute ja hukkunute arvu maakonniti | [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed) |
 
 
 ## Tööriistad
@@ -63,28 +56,11 @@ Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsk
 Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
 Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
 
-Näide andmetest:
-| id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
-|----|------------|----------|---------------|-------------|----------|------------|
-|  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
- | 2 | 2023-07-22 | 05:06:00 | Harju maakond | Tallinn     |        0 |          1|
- | 3 | 2014-01-25 | 21:06:00 | Harju maakond | Tallinn     |        0 |          1|
-|  4 | 2022-06-24 | 02:25:00 | Harju maakond | Tallinn     |        0 |          1|
-
 **Surmad**
 
 Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
 Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
 Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
-
-Tabelist näide:
-
-| id |   Näitaja   |     Nädal     | Vaatlusperiood |      Sugu       |     Vanuserühm     |  value  |
-|----|-------------|---------------|----------------|-----------------|--------------------|---------|
-|  1 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | Vanuserühmad kokku | 15476.0 |
-|  2 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 0-64               | 3095.0 |
-|  3 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 65-79              | 4945.0 |
-|  4 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 80 ja vanemad      | 7436.0 |
 
 **Ilma andmed**
 
@@ -93,13 +69,6 @@ Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (tem
 Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
 Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
 
-Tabeli esimesed read:
-| id | jaam_kood | jaam_nimi | aasta | kuu | paev | vaartus | element_kood |           element_nimi_eng            | element_yhik_eng |           avaandmed_ts           |
-|----|-----------|-----------|-------|-----|------|---------|--------------|---------------------------------------|------------------|----------------------------------|
-|  1 | AJJOGE01  | Jõgeva    | 2015  | 1   | 1    | 1010.9  | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506376+02:00|
-|  2 | AJJOGE01  | Jõgeva    | 2015  | 1   | 2    | 991.9   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506465+02:00|
-|  3 | AJJOGE01  | Jõgeva    | 2015  | 1   | 3    | 979.1   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506512+02:00|
-|  4 | AJJOGE01  | Jõgeva    | 2015  | 1   | 4    | 988.5   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506555+02:00|
 
 3. **Laadimine** — Andmed laaditakse `staging` kihti
 4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
@@ -149,6 +118,33 @@ Tabeli esimesed read:
 
 
 ```
+
+## Sissevõtt
+
+| Tabeli nimi | Allikas | Tüüp | Uuenemise sagedus | Roll | Link |
+|---------|---------|-------|--------------|------|------|
+| surmad | Statistikaamet RV035 | json | kord nädalas | Sisaldab **surmade arve** aasta, nädala, vanuserühma (0-64, 65-79, 80+) | [Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2) |
+| ilm | Keskkonnaportaal | json | kord tunnis | Sisaldab **ilmamõõtmisi** Eestis tunni ja jaama kaupa | [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused) |
+| onnetused | Transpordiamet | csv | kord nädalas | sisaldab **liiklusõnnetusi**, nendes vigastatute ja hukkunute arvu maakonniti | [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed) |
+
+**Liikluse andmed**
+Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed. [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed)
+Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
+Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
+
+**Surmad**
+
+Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
+Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
+Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
+
+**Ilma andmed**
+
+
+Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis. [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused)
+Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
+Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
+
 
 ## Käivitamine
 
