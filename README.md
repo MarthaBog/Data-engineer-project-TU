@@ -74,6 +74,7 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 ├── dbt_project.yml               ← dbt projekti konfiguratsioon ja mudelite struktuur
 ├── profiles.yml                  ← dbt ühenduse seadistus PostgreSQL andmebaasiga
 ├── dbt-requirements.txt          ← dbt konteineri Python sõltuvused
+├── superset_config.py            ← Superseti seadistus
 │
 ├── docker/
 │   └── dbt.Dockerfile            ← ehitab dbt tööks vajaliku konteineri
@@ -98,12 +99,13 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 │   ├── arhitektuur.md            ← nädala 1 väljund: süsteemi arhitektuuri kirjeldus
 │   └── progress.md               ← nädala 2 väljund: projekti edenemise ülevaade
 │
-└── scripts/
+├── scripts/
 |   ├── Dockerfile                ← ehitab pythoni konteineri
 |   ├── download_*.py             ← andmete allalaadimise skriptid
 |   ├── entrypoint.sh             ← skriptikonteineri käivitusskript
 |   └── requirements.txt          ← Python sõltuvused andmete allalaadimise skriptidele
-
+|
+└── superset_exports/             ← Superseti näidikulaua eksportfailid (JSON)
 
 ```
 
