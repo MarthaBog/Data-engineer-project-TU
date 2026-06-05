@@ -21,6 +21,8 @@ RUN chmod +x /app/orchestrator/run.sh
 
 COPY orchestrator/crontab /etc/cron.d/orchestrator
 RUN chmod 0644 /etc/cron.d/orchestrator \
-    && crontab /etc/cron.d/orchestrator
+    && crontab /etc/cron.d/orchestrator \
+    && mkdir -p /var/log \
+    && touch /var/log/orchestrator.log
 
 CMD ["cron", "-f"]

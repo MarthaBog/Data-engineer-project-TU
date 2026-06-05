@@ -136,4 +136,4 @@ if __name__ == "__main__":
     # Fetch data from 2020-01 to 2026-12
     # element_kood=None: all elements (temperature, precipitation, etc.)
     # jaam_kood=None: all weather stations
-    fetch_and_import_months(2020, 1, 2026, 12, element_kood=None, jaam_kood=None)
+    fetch_and_import_months(2026, 1, 2026, 12, element_kood=None, jaam_kood=None)

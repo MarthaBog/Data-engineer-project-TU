@@ -1,51 +1,72 @@
 # Docker Compose configuration for Estonian data pipeline
-# Services: PostgreSQL database + Python data loader + dbt + Superset + Orchestrator
+# Services: PostgreSQL database + Python data loader
 # 
 # Quick start:
-#   cp .env.example .env
 #   docker compose up -d --build
 #   docker compose ps
+#   docker compose exec db psql -U projekt -d ilm_surm_liiklus
 
 services:
   # ========================================================================
   # PostgreSQL Database Service (pgDuckDB variant)
   # ========================================================================
   db:
+    # Image: pgDuckDB 18 with PostGIS-like functionality
     image: pgduckdb/pgduckdb:18-v1.1.1
     container_name: ilm-db
+    
+    # Load environment variables from .env file
     env_file:
       - .env
+    
+    # Override specific environment variables for PostgreSQL
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+    
+    # Expose PostgreSQL port to host machine
     ports:
       - "5432:5432"
+    
+    # Persist database data in named volume
     volumes:
+      # Database files stored in pgdata volume (survives container restarts)
       - pgdata:/var/lib/postgresql
+      # Optional: SQL initialization scripts (uncomment to use)
+      # - ./init:/docker-entrypoint-initdb.d
+    
+    # Health check: verify database is ready before dependent services start
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
-      retries: 30
-      timeout: 5s
-      start_period: 60s
+      retries: 5
 
   # ========================================================================
   # Python Data Loader Service
   # ========================================================================
+  # This service downloads data from Estonian APIs and imports into database
   python:
+    # Build image from scripts/Dockerfile
     build: ./scripts
     container_name: ilm-python
+    
+    # Wait for database to be healthy before starting
     depends_on:
       db:
         condition: service_healthy
+    
+    # Set working directory inside container
     working_dir: /app
+    
+    # Pass database connection parameters to Python scripts
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
+    # entrypoint.sh runs automatically and executes all download scripts
 
   # ========================================================================
   # dbt Transformation Service
@@ -55,6 +76,8 @@ services:
       context: .
       dockerfile: docker/dbt.Dockerfile
     container_name: ilm-dbt
+    ports:
+      - "8080:8080"
     env_file:
       - .env
     depends_on:
@@ -75,7 +98,8 @@ services:
     restart: "no"
     profiles: ["dbt"]
 
-  # ========================================================================
+
+    # ========================================================================
   # Superset metadata database
   # ========================================================================
   superset-db:
@@ -93,7 +117,7 @@ services:
       retries: 10
 
   # ========================================================================
-  # Superset initialization
+  # Superset initialization: migrations + admin user
   # ========================================================================
   superset-init:
     build:
@@ -139,7 +163,6 @@ services:
       DATABASE_URI: "postgresql+psycopg2://${SUPERSET_DB_USER}:${SUPERSET_DB_PASSWORD}@superset-db:5432/${SUPERSET_DB_NAME}"
       SECRET_KEY: ${SUPERSET_SECRET_KEY}
     command: ["/app/docker/entrypoints/run-server.sh"]
-
   # ========================================================================
   # Pipeline Orchestrator: Coordinates data download → seed → transform
   # ========================================================================
