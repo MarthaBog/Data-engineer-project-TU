@@ -51,22 +51,6 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
 
-**Liikluse andmed**
-Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed. [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed)
-Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
-Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
-
-**Surmad**
-Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
-Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
-Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
-
-**Ilma andmed**
-Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis. [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused)
-Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
-Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
-
-
 3. **Laadimine** — Andmed laaditakse `staging` kihti
 4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
   - liiklusõnnetuste andmed "onnetused" -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv    
@@ -131,13 +115,54 @@ Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
 
 **Surmad**
 Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).
-Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
+Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse surmad.
 Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
 
 **Ilma andmed**
 Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis.
 Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
 Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
+
+## Andmetorude orkestreerimine
+
+Toimub konteineris _orchestrator_, mis käivitab kogu ETL‑protsessi automaatselt pärast Docker Compose’i ülesehitamist. Orkestreerija käivitab esmalt andmete laadimise skriptid (_download_weather_data.py_, _download_traffic_data.py_, _download_mortality_data.py_), mis toovad toorandmed API‑dest ja salvestavad need PostgreSQL andmebaasi. Kui kõik toorandmed on edukalt laetud, käivitab orkestreerija dbt transformatsioonid, mis loovad analüütilised tabelid ja vaated Superseti jaoks. Orkestreerimine tagab, et kõik ETL‑etapid toimuvad õiges järjekorras ning et transformatsioonid ei käivitu enne, kui andmebaas sisaldab värskeid toorandmeid.
+ 
+Orkestreerija konteiner asub kaustas orchestrator/, kus fail run_orchestration.py määrab täpse töövoo.
+Juurkataloogis olev docker-compose.yml seob orkestreerija kokku andmebaasi, dbt ja Supersetiga ning tagab, et orkestreerija käivitub alles siis, kui andmebaas on valmis ühendusi vastu võtma.
+Orkestreerimine rakendub automaatselt iga kord, kui projekt käivitatakse käsuga docker compose up, mis võimaldab projekti käivitada ka täiesti uuel masinal ilma käsitsi sekkumiseta.
+
+## dbt transformatsioonikiht
+
+Täpsem kirjeldus kihtidest, granulaarsustest, metoodikast ja piirangutest on failis [`docs/dbt_transformatsioonikiht.md`](docs/dbt_transformatsioonikiht.md).
+
+dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
+- `surmad`
+- `onnetused`
+- `ilm`
+
+Olulised väljundid:
+| Tabel | Kirjeldus |
+|-------|-----------|
+|- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
+|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
+|- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
+|- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
+|- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
+
+Struktuur:
+- `models/staging` puhastab ja seab paremad andetüübid
+- `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
+- `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
+- `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
+
+Konteinerite rollid:
+- `db` - andmebaas/ladu
+- `python` - toorandmete laadija
+- `orchestrator` - andmetorude orkestreerimine
+- `dbt` - transformatsioonikiht
+- `superset` - andmete visualiseerimiseks
+
+ 
 
 
 ## Käivitamine
@@ -196,36 +221,6 @@ Projekt kontrollib järgmist:
 Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 
 
-## dbt transformatsioonikiht
-
-Täpsem kirjeldus kihtidest, granulaarsustest, metoodikast ja piirangutest on failis [`docs/dbt_transformatsioonikiht.md`](docs/dbt_transformatsioonikiht.md).
-
-dbt projekt loob transformatsioonikihi olemasolevate tabelite peale:
-- `surmad`
-- `onnetused`
-- `ilm`
-
-Olulised väljundid:
-| Tabel | Kirjeldus |
-|-------|-----------|
-|- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
-|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
-|- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
-|- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
-|- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
-
-Struktuur:
-- `models/staging` puhastab ja seab paremad andetüübid
-- `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
-- `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
-- `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
-
-Konteinerite rollid:
-- `db` - andmebaas/ladu
-- `python` - toorandmete laadija
-- `orchestrator` - andmetorude orkestreerimine
-- `dbt` - transformatsioonikiht
-- `superset` - andmete visualiseerimiseks
 
 
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
