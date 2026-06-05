@@ -50,7 +50,7 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 ## Andmevoog lühidalt
 
-1. **Toorandmete sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
+1. **Toorandmete sissevõtt** — (README.md#toorandmete-sissev%C3%B5tt)
 2. **Andmetorude orkestreerimine**
 3. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
 4. **Testimine** - andmekvaliteedi testi kontrollivad korrektsust
