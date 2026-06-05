@@ -67,7 +67,8 @@ cd Data-engineer-project-TU
 # 2. Kopeeri keskkonnamuutujad
 cp .env.example .env
 
-# 3. Käivita teenused (käivitab korraga ka transformatsioonid ja loob superseti jaoks sisendi)
+# 3. Käivita teenused (käivitab korraga ka transformatsioonid ja
+loob superseti jaoks sisendi)
 docker compose up -d --build
 
 (Käsitsi dbt transformatsioonide käivitamine-- pole eraldi vaja teha
