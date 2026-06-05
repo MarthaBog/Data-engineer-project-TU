@@ -68,26 +68,26 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 ├── README.md                     ← projekti üldine kirjeldus ja kasutusjuhend
 ├── compose.yml                   ← Docker Compose, mis käivitab kogu andmetoru teenused
 ├── .dockerignore                 ← defineerib peidetud failid
-├── .env.example                  ← näidis keskkonnamuutujate fail projekti käivitamiseks
-├── .gitignore                    ← välistab mittevajalikud failid GitHubi commitidest
+├── .env.example                  ← keskkonnamuutujate e "saladuste" fail projekti käivitamiseks
+├── .gitignore                    ← defineerib peidetud failid GitHubi jaoks
 ├── dbt_project.yml               ← dbt projekti konfiguratsioon ja mudelite struktuur
 ├── profiles.yml                  ← dbt ühenduse seadistus PostgreSQL andmebaasiga
 ├── dbt-requirements.txt          ← dbt konteineri Python sõltuvused
 │
 ├── docker/
-│   └── dbt.Dockerfile            ← Dockerfile, mis ehitab dbt tööks vajaliku konteineri
-│   └── superset.Dockerfile       ← Dockerfail, mis ehitab Supersetile vajaliku konteineri 
+│   └── dbt.Dockerfile            ← ehitab dbt tööks vajaliku konteineri
+│   └── superset.Dockerfile       ← ehitab Supersetile vajaliku konteineri 
 │
 ├── macros/                       ← dbt makrod korduvate SQL‑loogikate jaoks
 │
 ├── models/
-│   ├── staging/                  ← toorandmete puhastamise ja standardiseerimise mudelid
-│   ├── intermediate/             ← äriloogika ja liitmistega vahemudelid
+│   ├── staging/                  ← toorandmete puhastamine
+│   ├── intermediate/             ← äriloogikale vajaliku granulaarsuse tekitamine
 │   └── marts/                    ← lõppmudelid analüütika ja Superseti jaoks
 │
 ├── orchestrator/
-│   ├── crontab                   ← ajastuse konfiguratsioon perioodiliste jooksude jaoks
-│   ├── Dockerfile                ← orkestreerija konteineri ehitamise kirjeldus
+│   ├── crontab                   ← ajastuse sageduse seadistamine
+│   ├── Dockerfile                ← ehitab orkestreerimise jaoks vajaliku konteineri
 │   ├── orchkestrator.py          ← töövoo juhtija, mis käivitab skriptid ja dbt transformatsioonid
 │   └── run.sh                    ← konteineri käivitusskript orkestreerija käivitamiseks
 │
@@ -98,10 +98,10 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 │   └── progress.md               ← nädala 2 väljund: projekti edenemise ülevaade
 │
 └── scripts/
-    ├── Dockerfile                ← skriptikonteineri ehitamise kirjeldus
-    ├── download_*.py             ← andmete allalaadimise skriptid
-    ├── entrypoint.sh             ← skriptikonteineri käivitusskript
-    └── requirements.txt          ← Python sõltuvused andmete allalaadimise skriptidele
+|   ├── Dockerfile                ← ehitab pythoni konteineri
+|   ├── download_*.py             ← andmete allalaadimise skriptid
+|   ├── entrypoint.sh             ← skriptikonteineri käivitusskript
+|   └── requirements.txt          ← Python sõltuvused andmete allalaadimise skriptidele
 
 
 ```
