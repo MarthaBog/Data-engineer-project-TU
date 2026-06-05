@@ -54,6 +54,63 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 | Andmehoidla | PostgreSQL |
 | Näidikulaud | [Superset] |
 
+## Andmevoog lühidalt
+
+1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
+
+**Liikluse andmed**
+Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed. [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed)
+Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
+Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
+
+Näide andmetest:
+| id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
+|----|------------|----------|---------------|-------------|----------|------------|
+|  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
+ | 2 | 2023-07-22 | 05:06:00 | Harju maakond | Tallinn     |        0 |          1|
+ | 3 | 2014-01-25 | 21:06:00 | Harju maakond | Tallinn     |        0 |          1|
+|  4 | 2022-06-24 | 02:25:00 | Harju maakond | Tallinn     |        0 |          1|
+
+**Surmad**
+
+Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
+Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
+Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
+
+Tabelist näide:
+
+| id |   Näitaja   |     Nädal     | Vaatlusperiood |      Sugu       |     Vanuserühm     |  value  |
+|----|-------------|---------------|----------------|-----------------|--------------------|---------|
+|  1 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | Vanuserühmad kokku | 15476.0 |
+|  2 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 0-64               | 3095.0 |
+|  3 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 65-79              | 4945.0 |
+|  4 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 80 ja vanemad      | 7436.0 |
+
+**Ilma andmed**
+
+
+Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis. [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused)
+Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
+Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
+
+Tabeli esimesed read:
+| id | jaam_kood | jaam_nimi | aasta | kuu | paev | vaartus | element_kood |           element_nimi_eng            | element_yhik_eng |           avaandmed_ts           |
+|----|-----------|-----------|-------|-----|------|---------|--------------|---------------------------------------|------------------|----------------------------------|
+|  1 | AJJOGE01  | Jõgeva    | 2015  | 1   | 1    | 1010.9  | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506376+02:00|
+|  2 | AJJOGE01  | Jõgeva    | 2015  | 1   | 2    | 991.9   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506465+02:00|
+|  3 | AJJOGE01  | Jõgeva    | 2015  | 1   | 3    | 979.1   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506512+02:00|
+|  4 | AJJOGE01  | Jõgeva    | 2015  | 1   | 4    | 988.5   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506555+02:00|
+
+3. **Laadimine** — Andmed laaditakse `staging` kihti
+4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
+  - liiklusõnnetuste andmed "onnetused" -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv    
+  - surmade andmed "surmad" -- alles jäävad read, kus "Näitaja" = 'Surmade arv' & "Nädalad" <> 'Nädalad kokku'. Sin tuleb tähele panna et need nädalad aastal 2026, mis pole veel kätte jäudnud on tabelis olemas, aga sisaldavad NaN ja teevad summeerimise sassi.
+    
+  - ilma andmed "ilm" -- veerus "element_nimi_eng" tuleb välja korjata meile meelepärased näitajad ja ajada õigete ajavahemike järgi kokku.  Seal on olemas  Air pressure at sea level (daily avg),  Air temperature (daily avg),  Air temperature (daily max),  Air temperature (daily min),  Global radiation (daily sum),  Precipitation (daily sum),  Relative humidity (daily avg),  Snow depth (at 06:00UTC),  Sunshine duration (daily sum),  Wind gust (daily max),  Wind speed (daily avg). Saame mõelda, mida täoselt vaja.
+  
+5. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
+6. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
+
 ## Projekti struktuur
 
 ```
@@ -136,62 +193,6 @@ Vajalikud muutujad:
 | `DB_PASSWORD` | PostgreSQL parool | (saladus) |
 | `[teised]` | ... | ... |
 
-## Andmevoog lühidalt
-
-1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
-
-**Liikluse andmed**
-Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed. [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed)
-Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
-Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
-
-Näide andmetest:
-| id |  kuupaev   |   kell   |    maakond    | omavalitsus | hukkunud | vigastatud |
-|----|------------|----------|---------------|-------------|----------|------------|
-|  1 | 2024-09-19 | 22:14:00 | Harju maakond | Saku vald   |        0 |          1|
- | 2 | 2023-07-22 | 05:06:00 | Harju maakond | Tallinn     |        0 |          1|
- | 3 | 2014-01-25 | 21:06:00 | Harju maakond | Tallinn     |        0 |          1|
-|  4 | 2022-06-24 | 02:25:00 | Harju maakond | Tallinn     |        0 |          1|
-
-**Surmad**
-
-Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
-Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
-Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
-
-Tabelist näide:
-
-| id |   Näitaja   |     Nädal     | Vaatlusperiood |      Sugu       |     Vanuserühm     |  value  |
-|----|-------------|---------------|----------------|-----------------|--------------------|---------|
-|  1 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | Vanuserühmad kokku | 15476.0 |
-|  2 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 0-64               | 3095.0 |
-|  3 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 65-79              | 4945.0 |
-|  4 | Surmade arv | Nädalad kokku | 2017           | Mehed ja naised | 80 ja vanemad      | 7436.0 |
-
-**Ilma andmed**
-
-
-Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis. [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused)
-Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
-Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
-
-Tabeli esimesed read:
-| id | jaam_kood | jaam_nimi | aasta | kuu | paev | vaartus | element_kood |           element_nimi_eng            | element_yhik_eng |           avaandmed_ts           |
-|----|-----------|-----------|-------|-----|------|---------|--------------|---------------------------------------|------------------|----------------------------------|
-|  1 | AJJOGE01  | Jõgeva    | 2015  | 1   | 1    | 1010.9  | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506376+02:00|
-|  2 | AJJOGE01  | Jõgeva    | 2015  | 1   | 2    | 991.9   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506465+02:00|
-|  3 | AJJOGE01  | Jõgeva    | 2015  | 1   | 3    | 979.1   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506512+02:00|
-|  4 | AJJOGE01  | Jõgeva    | 2015  | 1   | 4    | 988.5   | DPA008       | Air pressure at sea level (daily avg) | hPa              | 2024-01-15T09:42:45.506555+02:00|
-
-3. **Laadimine** — Andmed laaditakse `staging` kihti
-4. **Transformatsioon** — [Kirjelda peamised arvutused ja mudelid]
-  - liiklusõnnetuste andmed "onnetused" -- tuleb õnnetuste kuupäevad jagada nädalateks ja lugeda iga aasta ja nädala kohta kokku liiklusõnnetuste arv, hukkunute arv ja vigastatute arv    
-  - surmade andmed "surmad" -- alles jäävad read, kus "Näitaja" = 'Surmade arv' & "Nädalad" <> 'Nädalad kokku'. Sin tuleb tähele panna et need nädalad aastal 2026, mis pole veel kätte jäudnud on tabelis olemas, aga sisaldavad NaN ja teevad summeerimise sassi.
-    
-  - ilma andmed "ilm" -- veerus "element_nimi_eng" tuleb välja korjata meile meelepärased näitajad ja ajada õigete ajavahemike järgi kokku.  Seal on olemas  Air pressure at sea level (daily avg),  Air temperature (daily avg),  Air temperature (daily max),  Air temperature (daily min),  Global radiation (daily sum),  Precipitation (daily sum),  Relative humidity (daily avg),  Snow depth (at 06:00UTC),  Sunshine duration (daily sum),  Wind gust (daily max),  Wind speed (daily avg). Saame mõelda, mida täoselt vaja.
-  
-5. **Testimine** — [Mitu] andmekvaliteedi testi kontrollivad korrektsust
-6. **Näidikulaud** — [Kirjelda lühidalt, mida näidikulaud näitab]
 
 ## Andmekvaliteedi testid
 
