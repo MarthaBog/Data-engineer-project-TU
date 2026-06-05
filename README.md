@@ -55,10 +55,6 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 | Orkestreerimine | [CRON] |
 
 
-
-
-# Ei ole tehtud:
-
 ## Käivitamine
 
 ```bash
@@ -219,7 +215,7 @@ Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 
 | Nimi | Roll |
 |------|------|
-| [Marta Bogatõr] | [Roll] |
-| [Mark Robin Kalder] | [Roll] |
-| [Nimi 3] | [Roll] |
-| [Nimi 4] | [Roll — vabatahtlik] |
+| Inge Ringmets, Heti Pisarev | Kirjutab sissevõtu loogika, hoiab API-t töös |
+| Mark Robin Kalder | Kirjutab mart kihi mudelid ja mõõdikute arvutuse |
+| Inge Ringmets, Heti Pisarev | Kirjutab testid ja vaatab läbi ebaõnnestunud kontrollid |
+| Marta Bogatõr | Ehitab näidikulaua ja seob selle äriküsimusega |
