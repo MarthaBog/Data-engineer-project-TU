@@ -115,8 +115,9 @@ Struktuur:
 Konteinerite rollid:
 - `db` - andmebaas/ladu
 - `python` - toorandmete laadija
+- `orchestrator` - andmetorude orkestreerimine
 - `dbt` - transformatsioonikiht
-- 'superset' - andmete visualiseerimiseks
+- `superset` - andmete visualiseerimiseks
 
 ## Saladused ja konfiguratsioon
 
