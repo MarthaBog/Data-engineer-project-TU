@@ -134,7 +134,7 @@ Vajalikud muutujad:
 1. **Sissevõtt** — [Kirjelda, kuidas andmed allikast kätte saadakse]
 
 **Liikluse andmed**
-Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed.
+Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed. [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed)
 Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
 Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
 
@@ -148,7 +148,7 @@ Näide andmetest:
 
 **Surmad**
 
-Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).
+Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).[Surmad](https://andmed.stat.ee/et/stat/rahvastik__rahvastikusundmused__surmad/RV035/table/tableViewLayout2)
 Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse mortality.
 Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati ajakohased.
 
@@ -164,7 +164,7 @@ Tabelist näide:
 **Ilma andmed**
 
 
-Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis.
+Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis. [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused)
 Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
 Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
 
@@ -239,19 +239,27 @@ Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
 
 **Kokkuvõte:**
-- [Loetle, mis on lõpule viidud, mis töötab hästi]
+Docker Compose käivitab kõik teenused
+Andmeid saadakse allikast kätte
+Andmed laetakse staging kihti
+Transformatsioonid toimuvad
+Olemas on Superseti visualiseerimiskeskkond ja esimene interaktiivsed näidikulauad.
+Projekt käivitub automaatselt.
 
 **Puudused:**
-- [Loetle ausalt, mis jäi tegemata - see ei mõjuta hinnet negatiivselt, vaid aitab hinnata]
+-Tegemata on andmekvaliteedi testid. Kuna käigepealt ei saanud me tööle superseti ja hiljem võttis ajastamise tööle saamine nii kaua aega, siis füüsiliselt ei jõudnud kontrolle valmis kirjutada. Niisama andmetes sorisime küll -- vaatasime, palju kirjeid tuli, msi on nende sisu, kas tundub et vigu on jne. Samas tunudb, et kontrollide kirjutamie on tehniliselt kõige lihtsam, selle see ka käige viimaseksj äi, sest huvitavam aj kasulikum tundus projekti ülejäänud osad valmis saada.
+-Saladuste fail tuleb ka kästsi kopeerida, see ei toimu automaatselt koos muu käivitusega.
 
 **Mis edasi:**
-- [Mida tahaksid edasi teha, kui aega oleks rohkem]
+Kui tahask projekti kallal edasi töötada, sisi tuleks natuke põhjalikumalt mõelda ka äriküsimuste sisu peale, need ei oel praegu võibolla käige keerulisemad.
+Korda tuleks teha ka andmete automaatkontrollid.
 
 ## Meeskond
 
-| Nimi | Roll |
-|------|------|
-| [Marta Bogatõr] | [Roll] |
-| [Mark Robin Kalder] | [Roll] |
-| [Nimi 3] | [Roll] |
-| [Nimi 4] | [Roll — vabatahtlik] |
+| Roll | Vastutus | Täitja |
+|------|----------|--------|
+| Andmeallika omanik | Kirjutab sissevõtu loogika, hoiab API-t töös | Inge, Heti |
+| Transformatsioonide omanik | Kirjutab mart kihi mudelid ja mõõdikute arvutuse | Mark |
+| Kvaliteedi omanik | Kirjutab testid ja vaatab läbi ebaõnnestunud kontrollid | Inge, Heti |
+| Ajastamise omanik | Sätib paika ajastamise | Inge, Heti |
+| Näidikulaua omanik | Ehitab näidikulaua ja seob selle äriküsimusega | Marta |
