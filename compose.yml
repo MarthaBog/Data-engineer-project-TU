@@ -2,7 +2,6 @@
 # Services: PostgreSQL database + Python data loader
 # 
 # Quick start:
-#   cp .env.example .env
 #   docker compose up -d --build
 #   docker compose ps
 #   docker compose exec db psql -U projekt -d ilm_surm_liiklus
@@ -164,11 +163,34 @@ services:
       DATABASE_URI: "postgresql+psycopg2://${SUPERSET_DB_USER}:${SUPERSET_DB_PASSWORD}@superset-db:5432/${SUPERSET_DB_NAME}"
       SECRET_KEY: ${SUPERSET_SECRET_KEY}
     command: ["/app/docker/entrypoints/run-server.sh"]
+  # ========================================================================
+  # Pipeline Orchestrator: Coordinates data download → seed → transform
+  # ========================================================================
+  orchestrator:
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
+    container_name: ilm-orchestrator
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      DBT_DB_HOST: db
+      DBT_DB_PORT: 5432
+      DBT_DB_SCHEMA: public
+      DBT_PROFILES_DIR: /app
+    restart: unless-stopped
 
 # ============================================================================
 # Named Volumes
 # ============================================================================
-# pgdata: Persistent storage for PostgreSQL database
 volumes:
   pgdata:
   superset_db:
