@@ -156,7 +156,13 @@ Struktuur:
 - `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
 - `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
 
+## Andmekvaliteedi testid
 
+Testisime andmeid käsitsi, automaatset testimist hetkel ei ole.
+
+## Näidikulaud
+
+!! Marta, kirjuta siia Superseti osa!
 
 ## Käivitamine
 
@@ -194,45 +200,26 @@ Dashboards → Import → lisada zip-file kaustast "superset_exports"
 
 Kõik saladused (paroolid, API võtmed, andmebaasi URL-id) on `.env` failis. Repos on ainult `.env.example`, mis näitab vajalike muutujate struktuuri ilma tegelike väärtusteta. Päris `.env` faili ei tohi GitHubi panna - see on `.gitignore`-s.
 
-Vajalikud muutujad:
-
-| Muutuja | Tähendus | Näide |
-|---------|----------|-------|
-| `DB_PASSWORD` | PostgreSQL parool | (saladus) |
-| `[teised]` | ... | ... |
-
-
-## Andmekvaliteedi testid
-
-Projekt kontrollib järgmist:
-
-1. [Test 1 - nt: kasutajate ID on unikaalne]
-2. [Test 2 - nt: tellimuse summa pole null]
-3. [Test 3 - nt: kuupäev jääb vahemikku 2020-2026]
-[Lisa rohkem, kui sul on]
-
-Testide tulemused: [kuhu salvestatakse / kuidas vaadata]
-
-
-
 
 ## Kokkuvõte, puudused ja võimalikud edasiarendused
 
 **Kokkuvõte:**
 Docker Compose käivitab kõik teenused
-Andmeid saadakse allikast kätte
-Andmed laetakse staging kihti
-Transformatsioonid toimuvad
-Olemas on Superseti visualiseerimiskeskkond ja esimene interaktiivsed näidikulauad.
-Projekt käivitub automaatselt.
+Projekt käivitub iga nädal 1x automaatselt
+Andmed saadakse allikatest kätte
+Transformatsioonid toimuvad staging, intermediate ja marts kihtides
+Olemas on Superseti nädikulaud
 
 **Puudused:**
--Tegemata on andmekvaliteedi testid. Kuna käigepealt ei saanud me tööle superseti ja hiljem võttis ajastamise tööle saamine nii kaua aega, siis füüsiliselt ei jõudnud kontrolle valmis kirjutada. Niisama andmetes sorisime küll -- vaatasime, palju kirjeid tuli, msi on nende sisu, kas tundub et vigu on jne. Samas tunudb, et kontrollide kirjutamie on tehniliselt kõige lihtsam, selle see ka käige viimaseksj äi, sest huvitavam aj kasulikum tundus projekti ülejäänud osad valmis saada.
--Saladuste fail tuleb ka kästsi kopeerida, see ei toimu automaatselt koos muu käivitusega.
+- Andmekvaliteedi teste ei jõudnud skriptideks kirjutada
+- Palju aega kulus sellele, et kõik meeskonnaliikmed proovisid töövooga kaasas käia. Kõige ajamahukamateks kujunesid Superseti töölesaamine ja ajastamise programmeerimine.
+- Kontrollide kirjutamie ei tundu tehniliselt väga keeruline, Seega jäi see kõige viimaseks. Kasulikum ja huvitavamtundus projekti ülejäänud osade valmissaamine.
+- Saladuste fail tuleb kästsi kopeerida, see ei toimu automaatselt koos projekti käivitamisega.
 
 **Mis edasi:**
-Kui tahask projekti kallal edasi töötada, sisi tuleks natuke põhjalikumalt mõelda ka äriküsimuste sisu peale, need ei oel praegu võibolla käige keerulisemad.
-Korda tuleks teha ka andmete automaatkontrollid.
+- Tuleks põhjalikumalt mõelda äriküsimuste sisukuse peale.
+- Andmekvaliteedi automaatkontrollid kirjutada skriptideks.
+- Ajastamine toimub hetkel 1x nädalas kõikide toorandmete puhul korraga, aga võiks toimuda eraldi vastavalt iga algallika uuenemise sagedusele.
 
 ## Meeskond
 
