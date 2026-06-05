@@ -39,13 +39,14 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 ## Tööriistad
 
-| Komponent | Tööriist |
-|-----------|---------|
-| Sissevõtt | [Python] |
-| Orkestreerimine | [CRON] |
-| Transformatsioon | [SQL / dbt] |
-| Andmehoidla | PostgreSQL |
-| Näidikulaud | [Superset] |
+| Komponent | Tööriist | Konteiner |
+|-----------|---------|---------|
+| Sissevõtt | [Python] | `python` - toorandmete laadija |
+| Orkestreerimine | [CRON] | `orchestrator` - andmetorude orkestreerimine |
+| Transformatsioon | [SQL / dbt] | `dbt` - transformatsioonikiht |
+| Andmehoidla | PostgreSQL | `db` - andmebaas/ladu |
+| Näidikulaud | [Superset] | `superset` - andmete visualiseerimiseks |
+
 
 ## Andmevoog lühidalt
 
@@ -157,14 +158,6 @@ Struktuur:
 - `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
 - `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
 
-Konteinerite rollid:
-- `db` - andmebaas/ladu
-- `python` - toorandmete laadija
-- `orchestrator` - andmetorude orkestreerimine
-- `dbt` - transformatsioonikiht
-- `superset` - andmete visualiseerimiseks
-
- 
 
 
 ## Käivitamine
