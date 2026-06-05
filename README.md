@@ -65,37 +65,43 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 ```
 .
-├── README.md
-├── compose.yml
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── dbt_project.yml
-├── profiles.yml
-├── dbt-requirements.txt
+├── README.md                     ← projekti üldine kirjeldus ja kasutusjuhend
+├── compose.yml                   ← Docker Compose, mis käivitab kogu andmetoru teenused
+├── .dockerignore                 ← välistab mittevajalikud failid Dockerisse kopeerimisest
+├── .env.example                  ← näidis keskkonnamuutujate fail projekti käivitamiseks
+├── .gitignore                    ← välistab mittevajalikud failid GitHubi commitidest
+├── dbt_project.yml               ← dbt projekti konfiguratsioon ja mudelite struktuur
+├── profiles.yml                  ← dbt ühenduse seadistus PostgreSQL andmebaasiga
+├── dbt-requirements.txt          ← dbt konteineri Python sõltuvused
+│
 ├── docker/
-│   └── dbt.Dockerfile
-├── macros/
+│   └── dbt.Dockerfile            ← Dockerfile, mis ehitab dbt tööks vajaliku konteineri
+│   └── superset.Dockerfile       ← Dockerfail, mis ehitab Supersetile vajaliku konteineri 
+│
+├── macros/                       ← dbt makrod korduvate SQL‑loogikate jaoks
+│
 ├── models/
-│   ├── staging/
-│   ├── intermediate/
-│   └── marts/
+│   ├── staging/                  ← toorandmete puhastamise ja standardiseerimise mudelid
+│   ├── intermediate/             ← äriloogika ja liitmistega vahemudelid
+│   └── marts/                    ← lõppmudelid analüütika ja Superseti jaoks
+│
 ├── orchestrator/
-│   ├── crontab
-│   ├── Dockerfile
-│   ├── orchkestrator.py
-│   └── run.sh
-├── seeds/
+│   ├── crontab                   ← ajastuse konfiguratsioon perioodiliste jooksude jaoks
+│   ├── Dockerfile                ← orkestreerija konteineri ehitamise kirjeldus
+│   ├── orchkestrator.py          ← töövoo juhtija, mis käivitab skriptid ja dbt transformatsioonid
+│   └── run.sh                    ← konteineri käivitusskript orkestreerija käivitamiseks
+│
+├── seeds/                        ← dbt seed‑failid (staatilised CSV‑andmed)
+│
 ├── docs/
-│   ├── arhitektuur.md      ← nädal 1 väljund
-│   └── progress.md         ← nädal 2 väljund
+│   ├── arhitektuur.md            ← nädala 1 väljund: süsteemi arhitektuuri kirjeldus
+│   └── progress.md               ← nädala 2 väljund: projekti edenemise ülevaade
+│
 └── scripts/
-│   ├── Dockerfile
-│   ├── download_ilm.py
-│   ├── download_liiklus.py
-│   ├── download_surm.py
-│   ├── entrypoint.sh
-│   └── requirements.txt
+    ├── Dockerfile                ← skriptikonteineri ehitamise kirjeldus
+    ├── download_*.py             ← andmete allalaadimise skriptid
+    ├── entrypoint.sh             ← skriptikonteineri käivitusskript
+    └── requirements.txt          ← Python sõltuvused andmete allalaadimise skriptidele
 
 
 ```
