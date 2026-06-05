@@ -57,8 +57,6 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 
 
-# Ei ole tehtud:
-
 ## Käivitamine
 
 ```bash
@@ -69,19 +67,25 @@ cd Data-engineer-project-TU
 # 2. Kopeeri keskkonnamuutujad
 cp .env.example .env
 
-# 3. Käivita teenused
+# 3. Käivita teenused (käivitab korraga ka transformatsioonid ja loob superseti jaoks sisendi)
 docker compose up -d --build
 
-# 4. [Vabatahtlik: käivita sissevõtt käsitsi esimesel korral]
-# docker compose exec pipeline python scripts/run_pipeline.py run-all
-
-# 5. Käivita dbt transformatsioon
+(Käsitsi dbt transformatsioonide käivitamine (pole eraldi vaja teha)
 docker compose --profile dbt run --rm dbt seed
-docker compose --profile dbt run --rm dbt run
+docker compose --profile dbt run --rm dbt run=
 
-# 6. [Valikuline] Serveeri dbt docs aadressil http://localhost:8080
-docker compose --profile dbt run --rm --service-ports dbt docs generate
-docker compose --profile dbt run --rm --service-ports dbt docs serve --host 0.0.0.0 --port 8080
+# 4. Superseti avamiseks
+Superset link (parool failis ".env")
+http://localhost:8088
+
+Supersetis avada:
+**Settings → Database Connections → Ilm Surm Liiklus PostgreSQL → Edit**
+
+Sisesta SQLAlchemy URI:
+**postgresql://projekt:pass@db:5432/ilm_surm_liiklus**
+
+Import dashboard:
+Dashboards → Import → lisada zip-file kaustast "superset_exports"
 ```
 
 ## dbt transformatsioonikiht
