@@ -131,11 +131,7 @@ Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodilise
 
 ## Andmetorude orkestreerimine
 
-Toimub konteineris _orchestrator_, mis käivitab kogu ETL‑protsessi automaatselt pärast Docker Compose’i ülesehitamist. Orkestreerija käivitab esmalt andmete laadimise skriptid (_download_weather_data.py_, _download_traffic_data.py_, _download_mortality_data.py_), mis toovad toorandmed API‑dest ja salvestavad need PostgreSQL andmebaasi. Kui kõik toorandmed on edukalt laetud, käivitab orkestreerija dbt transformatsioonid, mis loovad analüütilised tabelid ja vaated Superseti jaoks. Orkestreerimine tagab, et kõik ETL‑etapid toimuvad õiges järjekorras ning et transformatsioonid ei käivitu enne, kui andmebaas sisaldab värskeid toorandmeid.
- 
-Orkestreerija konteiner asub kaustas orchestrator/, kus fail run_orchestration.py määrab täpse töövoo.
-Juurkataloogis olev docker-compose.yml seob orkestreerija kokku andmebaasi, dbt ja Supersetiga ning tagab, et orkestreerija käivitub alles siis, kui andmebaas on valmis ühendusi vastu võtma.
-Orkestreerimine rakendub automaatselt iga kord, kui projekt käivitatakse käsuga docker compose up, mis võimaldab projekti käivitada ka täiesti uuel masinal ilma käsitsi sekkumiseta.
+Toimub konteineris _orchestrator_, mis käivitab kogu ETL‑protsessi automaatselt pärast Docker Compose’i ülesehitamist. Orkestreerija käivitab esmalt andmete laadimise skriptid, mis toovad toorandmed ja salvestavad need PostgreSQL andmebaasi. Kui kõik toorandmed on edukalt laetud, käivitab orkestreerija dbt transformatsioonid, mis loovad analüütilised tabelid ja vaated Superseti jaoks. Orkestreerimine tagab, et kõik ETL‑etapid toimuvad õiges järjekorras ning et transformatsioonid ei käivitu enne, kui andmebaas sisaldab värskeid toorandmeid.
 
 ## dbt transformatsioonikiht
 
