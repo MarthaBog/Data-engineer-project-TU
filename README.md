@@ -41,11 +41,11 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 | Komponent | Tööriist | Konteiner |
 |-----------|---------|---------|
-| Sissevõtt | [Python] | `python` - toorandmete laadija |
-| Orkestreerimine | [CRON] | `orchestrator` - andmetorude orkestreerimine |
-| Transformatsioon | [SQL / dbt] | `dbt` - transformatsioonikiht |
-| Andmehoidla | PostgreSQL | `db` - andmebaas/ladu |
-| Näidikulaud | [Superset] | `superset` - andmete visualiseerimiseks |
+| Toorandmete sissevõtt | [Python] | `python` |
+| Andmetorude orkestreerimine | [CRON] | `orchestrator` |
+| Transformatsioon | [SQL / dbt] | `dbt` |
+| Andmehoidla | PostgreSQL | `db` |
+| Näidikulaud andmete visualiseerimiseks | [Superset] | `superset` |
 
 
 ## Andmevoog lühidalt
@@ -153,7 +153,7 @@ Olulised väljundid:
 |- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
 
 Struktuur:
-- `models/staging` puhastab ja seab paremad andetüübid
+- `models/staging` puhastab ja seab paremad andmetüübid
 - `models/intermediate` joondab granulaarsuse nädalale, jaamale ja maakonnale
 - `models/marts` loob dimensioonid, faktitabelid ja lõppmardid
 - `seeds` sisaldab maakondade ning ilmavaatlusjaamade staatilisi vastendusi
