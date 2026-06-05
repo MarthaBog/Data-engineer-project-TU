@@ -69,10 +69,11 @@ cp .env.example .env
 # 3. Käivita teenused (käivitab korraga ka transformatsioonid ja loob superseti jaoks sisendi)
 docker compose up -d --build
 
+<!--
 (Käsitsi dbt transformatsioonide käivitamine-- pole eraldi vaja teha)
 docker compose --profile dbt run --rm dbt seed
 docker compose --profile dbt run --rm dbt run
-
+-->
 
 # 4. Superseti avamiseks
 Superset link (parool failis ".env")
