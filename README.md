@@ -49,11 +49,10 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 | Komponent | Tööriist |
 |-----------|---------|
 | Sissevõtt | [Python] |
+| Orkestreerimine | [CRON] |
 | Transformatsioon | [SQL / dbt] |
 | Andmehoidla | PostgreSQL |
-| Näidikulaud | [Superset / Power bi] |
-| Orkestreerimine | [CRON] |
-
+| Näidikulaud | [Superset] |
 
 
 
