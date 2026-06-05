@@ -145,7 +145,7 @@ Olulised väljundid:
 | Tabel | Kirjeldus |
 |-------|-----------|
 |- `fct_deaths_weekly` | Surmade arv nädalate kaupa soo ja vanuse järgi |
-|- `fct_traffic_weekly_county` | Nädalane liilusõnnetuste info maakondade järgi | 
+|- `fct_traffic_weekly_county` | Nädalane liiklusõnnetuste info maakondade järgi | 
 |- `fct_weather_weekly_county` | Nädalane ilmainfo maakondades: temperatuur, sademed, tuul, päike | 
 |- `mart_deaths_weather_weekly_national` | Analüüsitabel surmade ja ilma seose kirjeldamiseks |
 |- `mart_traffic_weather_weekly_county` | Analüüsitabel liiklusõnnetuste ja ilma seose kirjeldamiseks |
