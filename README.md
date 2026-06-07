@@ -58,7 +58,7 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 1. [Toorandmete sissevõtt](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#toorandmete-sissev%C3%B5tt)
 2. [Andmetorude orkestreerimine](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#andmetorude-orkestreerimine)
 3. [Transformatsioon](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#dbt-transformatsioonikiht)
-4. [Testimine](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#andmekvaliteedi-testid)
+4. [Andmekvaliteedi testid](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#andmekvaliteedi-testid)
 5. [Näidikulaud](https://github.com/MarthaBog/Data-engineer-project-TU/blob/main/README.md#n%C3%A4idikulaud)
 
 
