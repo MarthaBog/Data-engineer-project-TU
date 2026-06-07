@@ -8,14 +8,19 @@ Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi 
 
 **Mõõdikud:**
 
-1. Nädala keskmine temperatuur, päikesepaiste hulk + Ööpäeva keskmine temperatuur
-  päikesepaiste kestus, grupeeritud aasta + nädal järgi
-2. Äärmuslikud ilmastikutingimused
-  Väga kuum päev = päev, mil maksimaalne temperatuur on üle 30°C
-  Väga külm päev = päev, mil keskmine või minimaalne temperatuur jääb alla valitud lävendi, näiteks -10°C
-3. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
-  liiklusõnnetus(valida gruppi), grupeeritud kuupäev + maakond järgi
-4. Surmajuhtude arv nädalas - päevas surnud inimeste arvu summa kokku ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti
+1.Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
+  liiklusõnnetus(valida gruppi), grupeeritud nädal + maakond järgi
+2. Surmajuhtude arv nädalas - surnud inimeste arv ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti Nädala keskmine temperatuur grupeeritud aasta + nädal järgi
+3. Äärmuslikud ilmastikutingimused
+  Soe nädal – nädal, kus keskmine temperatuur oli vähemalt 18 °C.
+  Külm nädal – nädal, kus keskmine temperatuur oli -5 °C või madalam.
+  Väga päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 80 tundi.
+  Päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 60 tundi.
+  Väga sajune nädal – nädal, kus sademete kogus oli vähemalt 100 mm.
+  Sajune nädal – nädal, kus sademete kogus oli vähemalt 30 mm.
+  Väga kuum nädal – nädal, kus esines vähemalt üks päev maksimaalse temperatuuriga üle 30 °C.
+  Väga külm nädal – nädal, kus esines vähemalt üks päev minimaalse temperatuuriga alla -10 °C.
+  Tavaline nädal – nädal, mis ei vastanud ühelegi eelnevale eritingimusele.
 
 ## Arhitektuur
 
@@ -156,7 +161,10 @@ Struktuur:
 
 ## Andmekvaliteedi testid
 
-Testisime andmeid käsitsi, automaatset testimist hetkel ei ole.
+Testisime andmeid käsitsi, automaatset testimist hetkel ei ole. Võimalikud testimise ideed:
+- Idempotentsus -- et taaskäivitamisel saame sama tulemuse ja et meil ei tekiks duplikaate.
+- Vajalikud dimensioonid (nädalad, aastad, maakonnad, vanuserühmad ja sugu) ei sisaldaks tühje väärtusi.
+- Vaatame andmetes miinimum- ja maksimumväärtusi, kas need on loogilised.
 
 ## Näidikulaud
 
