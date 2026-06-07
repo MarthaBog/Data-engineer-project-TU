@@ -257,7 +257,7 @@ Olemas on Superseti nädikulaud
 **Mis edasi:**
 - Tuleks põhjalikumalt mõelda äriküsimuste sisukuse peale.
 - Ajastamine toimub hetkel 1x nädalas kõikide toorandmete puhul korraga, aga võiks toimuda eraldi vastavalt iga algallika uuenemise sagedusele.
-- Praegu tõmmatakse mahukad toorandmed uuesti, parem lahendus oleks see, kui me tõmbaksime juurde ainult juurde tulnud andmed.
+- Praegu tõmmatakse mahukad toorandmed iga päev uuesti, parem lahendus oleks see, kui me lisaksime ainult juurde tulnud andmed.
 
 ## Meeskond
 
