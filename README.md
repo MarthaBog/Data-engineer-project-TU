@@ -2,8 +2,8 @@
 
 ## Äriküsimus
 
-Eesmärk on uurida, kas ja kuidas on ilm (temperatuur, sademed ja tuul) seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja/või liiklusõnnetusi. Surmajuhtumeid saab analüüsida ka vanuserühmiti, liiklusõnnetusi maakonniti või piirkonniti.
-Ilma "mõju" hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid. Vajadusel kasutatakse võrdlusperioodina varasemate aastate sama nädala keskmisi näitajaid.
+Eesmärk on uurida, kas ja kuidas on ilm (temperatuur, sademed ja päike) seotud surmajuhtude ja liiklusõnnetuste arvuga. Näiteks kas väga kuumade või väga külmade ilmadega on rohkem surmajuhte ja liiklusõnnetusi. Surmajuhtumeid analüüsitakse soo- ja vanuserühmiti, liiklusõnnetusi maakonniti.
+Ilma "mõju" hindamiseks võrreldakse erinevate ilmastikutingimustega nädalaid. 
 Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi seoseid ilmastikunäitajate, surmajuhtude ja liiklusõnnetuste vahel.
 
 **Mõõdikud:**
