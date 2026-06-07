@@ -10,7 +10,9 @@ Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi 
 
 1.Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
   liiklusõnnetus(valida gruppi), grupeeritud nädal + maakond järgi
+  
 2. Surmajuhtude arv nädalas - surnud inimeste arv ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti Nädala keskmine temperatuur grupeeritud aasta + nädal järgi
+   
 3. Äärmuslikud ilmastikutingimused
   Soe nädal – nädal, kus keskmine temperatuur oli vähemalt 18 °C.
   Külm nädal – nädal, kus keskmine temperatuur oli -5 °C või madalam.
