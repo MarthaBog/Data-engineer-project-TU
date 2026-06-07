@@ -14,15 +14,15 @@ Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi 
 2. Surmajuhtude arv nädalas - surnud inimeste arv ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti Nädala keskmine temperatuur grupeeritud aasta + nädal järgi
    
 3. Äärmuslikud ilmastikutingimused
-  Soe nädal – nädal, kus keskmine temperatuur oli vähemalt 18 °C.
-  Külm nädal – nädal, kus keskmine temperatuur oli -5 °C või madalam.
-  Väga päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 80 tundi.
-  Päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 60 tundi.
-  Väga sajune nädal – nädal, kus sademete kogus oli vähemalt 100 mm.
-  Sajune nädal – nädal, kus sademete kogus oli vähemalt 30 mm.
-  Väga kuum nädal – nädal, kus esines vähemalt üks päev maksimaalse temperatuuriga üle 30 °C.
-  Väga külm nädal – nädal, kus esines vähemalt üks päev minimaalse temperatuuriga alla -10 °C.
-  Tavaline nädal – nädal, mis ei vastanud ühelegi eelnevale eritingimusele.
+  - Soe nädal – nädal, kus keskmine temperatuur oli vähemalt 18 °C
+  - Külm nädal – nädal, kus keskmine temperatuur oli -5 °C või madalam
+  - Väga päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 80 tundi
+  - Päikeseline nädal – nädal, kus päikesepaiste kestus oli vähemalt 60 tundi
+  - Väga sajune nädal – nädal, kus sademete kogus oli vähemalt 100 mm
+  - Sajune nädal – nädal, kus sademete kogus oli vähemalt 30 mm
+  - Väga kuum nädal – nädal, kus esines vähemalt üks päev maksimaalse temperatuuriga üle 30 °C
+  - Väga külm nädal – nädal, kus esines vähemalt üks päev minimaalse temperatuuriga alla -10 °C
+  - Tavaline nädal – nädal, mis ei vastanud ühelegi eelnevale eritingimusele
 
 ## Arhitektuur
 
