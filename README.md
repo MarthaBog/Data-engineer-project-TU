@@ -35,8 +35,6 @@ source3[Transpordiamet] --> ingest[Python]
 Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 
 
-
-
 ## Tööriistad
 
 | Komponent | Tööriist | Konteiner |
@@ -162,7 +160,21 @@ Testisime andmeid käsitsi, automaatset testimist hetkel ei ole.
 
 ## Näidikulaud
 
-!! Marta, kirjuta siia Superseti osa!
+Dashboard loodi Apache Supersetis ning selle eesmärk oli anda ülevaade võimalikest seostest kolme teema vahel: **ilmastikutingimused, liiklusõnnetused ja surmad Eestis**. Oluline on rõhutada, et analüüsi **eesmärk ei olnud tõestada põhjus-tagajärg seoseid**.See dashboard aitab pigem märgata mustreid ja võimalikke kokkulangevusi nende nähtuste vahel.
+
+Andmeid vaadeldakse **aastate ja nädalate lõikes** ning lisaks on võimalik tulemusi filtreerida **soo, vanuse ja maakonna** järgi. Visualisatsioonide loetavuse parandamiseks ja lihtsustamiseks piirati kuvatav periood aastatega **2020–2026**. Ja ise dashboard-i jagati kaheks peamiseks teemaks: **Liiklusõnnetused ja ilmastikutingimused** ning **Surmad ja ilmastikutingimused**. Ülemisse ossa samuti lisati KPI-kaardid, mis annavad kiire ülevaate olulisematest näitajatest.
+
+Filtrite kasutamisel tuleb arvestada, et visualisatsioonid põhinevad erinevatel tabelitel. Seetõttu ei mõjuta kõik filtrid kõiki graafikuid korraga. Näiteks maakonna filter rakendub ainult nendele visualisatsioonidele, mille aluseks olevas tabelis on maakonna tunnus olemas.
+
+![alt text](image.png)
+
+### Dashboardi loomise protsess
+
+Töö alustamiseks avati Apache Superseti keskkond ning loodi vajalik kasutaja. Seejärel ühendati Superset projekti PostgreSQL-i andmebaasiga, mis võimaldas luua graafikuid varem ettevalmistatud mart-tabelite põhjal.
+
+Ettevalmistatud andmete üldine struktuur ja mart-tabelid olid hästi tehtud ning pakkusid dashboardi loomiseks tugeva aluse. Aga töö käigus selgus siiski, et mart-tabeleid ei ole alati mõistlik otse kasutada. Osa vajalikke andmeid tuli ühendada viisil, mida olemasolevad mart-tabelid ei võimaldanud. Lisaks esines andmetes duplikaate, mille tõttu võisid agregeeritud näitajad kuvada valesid väärtusi.
+
+Nende probleemide lahendamiseks loodi SQL Labis neli virtuaalset andmestikku. Need võimaldasid lisada arvutatavaid välju, määrata andmetele sobiva detailsustaseme ning vältida vigu agregeerimisel. Selline lähenemine muutis dashboardi ülesehituse selgemaks ja vähendas riski, et visualisatsioonides kuvatakse eksitavaid tulemusi.
 
 ## Käivitamine
 
