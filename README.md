@@ -208,13 +208,14 @@ cd Data-engineer-project-TU
 # 2. Kopeeri keskkonnamuutujad
 cp .env.example .env
 
-# 3. Käivita teenused (käivitab korraga ka transformatsioonid ja loob superseti jaoks sisendi)
+# 3. Käivita teenused (käivitab korraga toorandmete laadimise, transformatsioonid, kvaliteeditestid ja loob superseti jaoks sisendi)
 docker compose up -d --build
 
-_(Käsitsi dbt transformatsioonide ja testi käivitamine -- *pole eraldi vaja teha*)_
-_docker compose --profile dbt run --rm dbt seed_
-_docker compose --profile dbt run --rm dbt run_
-_docker compose --profile dbt run --rm dbt test_
+        (Soovi korral käsitsi dbt transformatsioonide ja testi käivitamine:
+        docker compose --profile dbt run --rm dbt seed
+        docker compose --profile dbt run --rm dbt run
+        docker compose --profile dbt run --rm dbt test
+        )
 
 # 4. Superseti avamiseks
 Superset link (parool failis ".env")
