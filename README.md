@@ -81,6 +81,10 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 │   └── dbt.Dockerfile            ← ehitab dbt tööks vajaliku konteineri
 │   └── superset.Dockerfile       ← ehitab Supersetile vajaliku konteineri 
 │
+├── docs/
+│   ├── arhitektuur.md            ← nädala 1 väljund: süsteemi arhitektuuri kirjeldus
+│   └── progress.md               ← nädala 2 väljund: projekti edenemise ülevaade
+│
 ├── macros/                       ← dbt makrod korduvate SQL‑loogikate jaoks
 │
 ├── models/
@@ -95,10 +99,6 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 │   └── run.sh                    ← konteineri käivitusskript orkestreerija käivitamiseks
 │
 ├── seeds/                        ← dbt seed‑failid (staatilised CSV‑andmed)
-│
-├── docs/
-│   ├── arhitektuur.md            ← nädala 1 väljund: süsteemi arhitektuuri kirjeldus
-│   └── progress.md               ← nädala 2 väljund: projekti edenemise ülevaade
 │
 ├── scripts/
 |   ├── Dockerfile                ← ehitab pythoni konteineri
