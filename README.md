@@ -48,7 +48,7 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 |-----------|---------|---------|
 | Toorandmete sissevõtt | Python | `python` |
 | Andmetorude orkestreerimine | CRON | `orchestrator` |
-| Transformatsioon | SQL / dbt | `dbt` |
+| Transformatsioon, andmekvaliteedi testid | SQL / dbt | `dbt` |
 | Andmehoidla | PostgreSQL | `db` |
 | Näidikulaud andmete visualiseerimiseks | Superset | `superset` |
 
