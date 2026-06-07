@@ -163,9 +163,22 @@ Struktuur:
 
 ## Andmekvaliteedi testid
 
-- Idempotentsus -- et taaskäivitamisel saame sama tulemuse ja et meil ei tekiks duplikaate. Lahendatud sellega, et iga käivituse alguses kututatakse toorandmed maha ja tehakse kogu protsess uuesti. 
-- Vajalikud dimensioonid (nädalad, aastad, maakonnad, vanuserühmad ja sugu) ei sisaldaks tühje väärtusi.
-- Vaatame andmetes miinimum- ja maksimumväärtusi, kas need on loogilised.
+Projektis on automaatsed dbt andmekvaliteedi testid nii toorandmete, transformatsioonide kui ka lõppmartide jaoks:
+
+- loomulike võtmete duplikaadikontroll toor- ja faktitasemel
+- kohustuslike dimensiooniväljade not null ja unikaalsuse kontrollid
+- nädalate ja aastate loogiliste vahemike kontroll
+- loendus- ja kogusväljade mitte-negatiivsuse kontroll
+- martide detailsuse kontroll, et sama nädal-kombinatsioon ei korduks
+  
+Ajastatud jooksud:
+- orchestrator/run.sh käivitab nüüd iga cron-jooksu ajal anmete sisevõtu, dbt seed, dbt run ja dbt test
+- kui testid kukuvad läbi, lõpeb ajastatud töö veaga ja see on logidest nähtav
+
+Idempotentsus:
+- surmad ja õnnetused laaditakse igal jooksul uuesti täismahus, et korduvkäivitus ei tekitaks duplikaate
+- lisaks kontrollivad testid, et loomulikud võtmed jääksid unikaalseks ka pärast korduvat käivitust
+
 
 ## Näidikulaud
 
@@ -235,11 +248,12 @@ Olemas on Superseti nädikulaud
 **Puudused:**
 - Palju aega kulus sellele, et kõik meeskonnaliikmed proovisid töövooga kaasas käia. Kõige ajamahukamateks kujunesid Superseti töölesaamine ja ajastamise programmeerimine.
 - Saladuste fail tuleb kästsi kopeerida, see ei toimu automaatselt koos projekti käivitamisega.
-- Andmevaliteedi testid said tehtud kõige viimasena ja seega võib seal olla veel puudusi.
+- Andmekvaliteedi testid said tehtud kõige viimasena ja seega võib seal olla veel puudusi.  
 
 **Mis edasi:**
 - Tuleks põhjalikumalt mõelda äriküsimuste sisukuse peale.
 - Ajastamine toimub hetkel 1x nädalas kõikide toorandmete puhul korraga, aga võiks toimuda eraldi vastavalt iga algallika uuenemise sagedusele.
+- Praegu tõmmatakse mahukad toorandmed uuesti, parem lahendus oleks see, kui me tõmbaksime juurde ainult juurde tulnud andmed.
 
 ## Meeskond
 
