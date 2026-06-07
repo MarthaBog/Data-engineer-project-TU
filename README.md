@@ -105,6 +105,8 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 |   ├── download_*.py             ← andmete allalaadimise skriptid
 |   ├── entrypoint.sh             ← skriptikonteineri käivitusskript
 |   └── requirements.txt          ← Python sõltuvused andmete allalaadimise skriptidele
+│
+├── tests/                        ← andmekvaliteedi testid
 |
 └── superset_exports/             ← Superseti näidikulaua eksportfailid (JSON)
 
