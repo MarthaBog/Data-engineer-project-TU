@@ -34,7 +34,7 @@ source3[Transpordiamet] --> ingest[Python]
     ingest --> staging[(PostgreSQL)]
     staging --> transform[dbt transformatsioon]
     transform --> mart[(PostgreSQL)]
-    mart --> dashboard[Power bi/Superset]
+    mart --> dashboard[Superset]
     mart --> quality[dbt andmekvaliteedi testid]
     scheduler[Cron] --> ingest
 ```
