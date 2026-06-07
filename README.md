@@ -250,9 +250,10 @@ Toimuvad andmekvaliteedikontrollid peale andmete transformeerimist
 Olemas on Superseti nädikulaud
 
 **Puudused:**
-- Palju aega kulus sellele, et kõik meeskonnaliikmed proovisid töövooga kaasas käia. Kõige ajamahukamateks kujunesid Superseti töölesaamine ja ajastamise programmeerimine.
-- Saladuste fail tuleb kästsi kopeerida, see ei toimu automaatselt koos projekti käivitamisega.
-- Andmekvaliteedi testid said tehtud kõige viimasena ja seega võib seal olla veel puudusi.  
+- Palju aega kulus sellele, et kõik meeskonnaliikmed proovisid töövooga kaasas käia. Kõige ajamahukamateks kujunesid Superseti töölesaamine ja ajastamise programmeerimine
+- Saladuste fail tuleb kästsi kopeerida, see ei toimu automaatselt koos projekti käivitamisega
+- Andmekvaliteedi testid said tehtud kõige viimasena ja seega võib seal olla veel puudusi
+- Dashboard on testimata erinevate resolutsiooniga ekraanidel
 
 **Mis edasi:**
 - Tuleks põhjalikumalt mõelda äriküsimuste sisukuse peale.
