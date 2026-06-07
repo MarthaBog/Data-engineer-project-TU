@@ -3,20 +3,78 @@ version: 2
 models:
   - name: int_onnetused_weekly_county
     description: Weekly county traffic accident aggregates.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: county_name
+        tests:
+          - not_null
+      - name: accident_count
+        tests:
+          - not_null
+      - name: injured_count
+        tests:
+          - not_null
+      - name: killed_count
+        tests:
+          - not_null
   - name: int_onnetused_weekly_county_hist
     description: Historical same-week traffic baselines by county using prior years only.
   - name: int_ilm_daily_station
     description: One row per station-day with weather metrics pivoted wide.
+    columns:
+      - name: station_code
+        tests:
+          - not_null
+      - name: date_day
+        tests:
+          - not_null
   - name: int_ilm_daily_county
     description: One row per county-day with station weather averaged to the county grain.
+    columns:
+      - name: county_name
+        tests:
+          - not_null
+      - name: date_day
+        tests:
+          - not_null
   - name: int_ilm_weekly_station
     description: Weekly weather aggregates by station.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: station_code
+        tests:
+          - not_null
+      - name: observed_day_count
+        tests:
+          - not_null
   - name: int_ilm_weekly_county
     description: Weekly county weather features including weather extremes and coverage counts.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: county_name
+        tests:
+          - not_null
+      - name: observed_day_count
+        tests:
+          - not_null
   - name: int_ilm_weekly_county_hist
     description: Historical same-week county weather baselines using prior years only.
   - name: int_ilm_weekly_national
     description: Weekly national weather features aggregated from county-day observations.
+    columns:
+      - name: week_key
+        tests:
+          - unique
+          - not_null
+      - name: observed_county_day_count
+        tests:
+          - not_null
   - name: int_ilm_weekly_national_hist
     description: Historical same-week national weather baselines using prior years only.
   - name: int_surmad_weekly_hist

@@ -16,6 +16,10 @@ WORKDIR /app
 COPY dbt-requirements.txt .
 RUN pip install --no-cache-dir -r dbt-requirements.txt
 
+# Install ingestion dependencies so scheduled runs can execute downloads too.
+COPY scripts/requirements.txt /tmp/scripts-requirements.txt
+RUN pip install --no-cache-dir -r /tmp/scripts-requirements.txt
+
 COPY orchestrator/run.sh /app/orchestrator/run.sh
 RUN chmod +x /app/orchestrator/run.sh
 

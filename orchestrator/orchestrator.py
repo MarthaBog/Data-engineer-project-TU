@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Pipeline Orchestrator
-Coordinates: data download → dbt seed → dbt run
+Coordinates: data download → dbt seed → dbt run → dbt test
 Uses Docker SDK instead of docker CLI
 """
 
@@ -75,6 +75,18 @@ def main():
         "DBT run (transformations)"
     ):
         log("DBT run failed!")
+        return False
+
+    log("\nWaiting 5 seconds before dbt test...")
+    time.sleep(5)
+
+    # Step 4: DBT Test
+    log("\n--- Step 4: DBT Test (data quality) ---")
+    if not run_compose_command(
+        "--profile dbt run --rm dbt test",
+        "DBT test (data quality)"
+    ):
+        log("DBT test failed!")
         return False
     
     log("\n" + "=" * 60)

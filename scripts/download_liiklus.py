@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-# download_liiklus.py - Download only NEW traffic accident data from 2020-01-01 onwards
+# download_liiklus.py - Full reload traffic accident data from 2020-01-01 onwards
 
 import os
 import requests
 import psycopg2
 import warnings
-from datetime import datetime
-
 # Suppress SSL warnings for development (corporate proxy issue)
 warnings.filterwarnings('ignore', message='Unverified HTTPS request')
 
@@ -42,20 +40,8 @@ def get_download_url():
     
     raise Exception("CSV distribution not found")
 
-def get_last_import_date(conn):
-    """Get the most recent date in the database."""
-    cur = conn.cursor()
-    try:
-        cur.execute(f"SELECT MAX(kuupaev) FROM {PG_TABLE};")
-        result = cur.fetchone()
-        last_date = result[0] if result and result[0] else MIN_DATE
-        return last_date
-    except Exception as e:
-        print(f"Could not get last import date: {e}. Starting from {MIN_DATE}")
-        return MIN_DATE
-
 def download_and_import():
-    """Download CSV directly from URL and import new data to PostgreSQL."""
+    """Download CSV directly from URL and fully reload data to PostgreSQL."""
     url = get_download_url()
     print(f"Downloading from: {url}")
     
@@ -87,20 +73,22 @@ def download_and_import():
         );
     """)
     conn.commit()
-    
-    # Get last imported date to skip existing data
-    last_date = get_last_import_date(conn)
-    print(f"Last imported date: {last_date}")
+
+    print(f"Truncating {PG_TABLE} before full reload...")
+    cur.execute(f"TRUNCATE TABLE {PG_TABLE};")
+    conn.commit()
+
     print(f"Minimum date filter: {MIN_DATE}")
-    
-    # Parse CSV stream and insert only NEW rows
-    print("Importing new data...")
+
+    # Parse CSV stream and insert filtered rows
+    print("Importing filtered data...")
     import csv
     import io
     
     lines = []
     row_count = 0
     skipped_count = 0
+    seen_rows = set()
     
     # Buffer lines and process
     for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
@@ -122,13 +110,22 @@ def download_and_import():
                 skipped_count += 1
                 continue
             
-            # Skip rows that already exist (already imported)
-            if kuupaev <= last_date:
-                skipped_count += 1
-                continue
-            
             hukkunuid = int(row.get("Hukkunuid", 0) or 0)
             vigastatuid = int(row.get("Vigastatuid", 0) or 0)
+            natural_key = (
+                kuupaev,
+                kell,
+                row.get("Maakond", ""),
+                row.get("Omavalitsus", ""),
+                hukkunuid,
+                vigastatuid,
+            )
+
+            if natural_key in seen_rows:
+                skipped_count += 1
+                continue
+
+            seen_rows.add(natural_key)
             
             cur.execute("""
                 INSERT INTO onnetused (kuupaev, kell, maakond, omavalitsus, hukkunud, vigastatud)
@@ -151,8 +148,8 @@ def download_and_import():
     cur.close()
     conn.close()
     
-    print(f"Imported {row_count} NEW rows into {PG_TABLE}")
-    print(f"Skipped {skipped_count} rows (before {MIN_DATE} or already existing)")
+    print(f"Imported {row_count} rows into {PG_TABLE}")
+    print(f"Skipped {skipped_count} rows (before {MIN_DATE})")
 
 if __name__ == "__main__":
     download_and_import()

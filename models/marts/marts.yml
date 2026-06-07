@@ -3,23 +3,164 @@ version: 2
 models:
   - name: dim_week
     description: Conformed ISO week dimension used across facts.
+    columns:
+      - name: week_key
+        tests:
+          - unique
+          - not_null
+      - name: iso_year
+        tests:
+          - not_null
+      - name: iso_week
+        tests:
+          - not_null
+      - name: week_start_date
+        tests:
+          - not_null
+      - name: week_end_date
+        tests:
+          - not_null
   - name: dim_county
     description: Standardized county dimension.
+    columns:
+      - name: county_key
+        tests:
+          - unique
+          - not_null
+      - name: county_name
+        tests:
+          - unique
+          - not_null
+      - name: county_code
+        tests:
+          - unique
+          - not_null
   - name: dim_age_group
     description: Standardized deaths age-group dimension.
+    columns:
+      - name: age_group_key
+        tests:
+          - unique
+          - not_null
+      - name: age_group_label
+        tests:
+          - unique
+          - not_null
   - name: dim_sex
     description: Standardized sex dimension.
+    columns:
+      - name: sex_key
+        tests:
+          - unique
+          - not_null
+      - name: sex_code
+        tests:
+          - unique
+          - not_null
+          - accepted_values:
+              values: ['all', 'male', 'female']
+      - name: sex_label
+        tests:
+          - unique
+          - not_null
   - name: dim_weather_station
     description: Weather station dimension with county assignment.
+    columns:
+      - name: station_key
+        tests:
+          - unique
+          - not_null
+      - name: station_code
+        tests:
+          - unique
+          - not_null
+      - name: county_key
+        tests:
+          - not_null
   - name: fct_deaths_weekly
     description: Weekly deaths fact at week, age-group, and sex grain.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: age_group_key
+        tests:
+          - not_null
+      - name: sex_key
+        tests:
+          - not_null
+      - name: deaths_count
+        tests:
+          - not_null
   - name: fct_traffic_weekly_county
     description: Weekly county traffic accident fact.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: county_key
+        tests:
+          - not_null
+      - name: accident_count
+        tests:
+          - not_null
+      - name: injured_count
+        tests:
+          - not_null
+      - name: killed_count
+        tests:
+          - not_null
   - name: fct_weather_weekly_station
     description: Weekly station weather fact for lineage and support analysis.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: station_key
+        tests:
+          - not_null
+      - name: observed_day_count
+        tests:
+          - not_null
   - name: fct_weather_weekly_county
     description: Weekly county weather fact with weekly feature columns.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: county_key
+        tests:
+          - not_null
+      - name: observed_day_count
+        tests:
+          - not_null
   - name: mart_deaths_weather_weekly_national
     description: Final weekly national deaths and weather mart with prior-year same-week comparisons.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: age_group_key
+        tests:
+          - not_null
+      - name: sex_key
+        tests:
+          - not_null
+      - name: deaths_count
+        tests:
+          - not_null
   - name: mart_traffic_weather_weekly_county
     description: Final weekly county traffic and weather mart with prior-year same-week comparisons.
+    columns:
+      - name: week_key
+        tests:
+          - not_null
+      - name: county_key
+        tests:
+          - not_null
+      - name: accident_count
+        tests:
+          - not_null
+      - name: observed_day_count
+        tests:
+          - not_null

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# download_surm.py - Download only NEW mortality data from 2017 onwards
+# download_surm.py - Full reload mortality data from 2020 onwards
 
 import os
 import sys
@@ -109,20 +109,10 @@ def jsonstat_to_rows(js: Dict[str, Any]):
         logging.error(f"Error parsing JSON-stat2: {e}")
         raise
 
-def get_existing_rows(conn):
-    """Get count of existing rows to detect duplicates."""
-    cur = conn.cursor()
-    try:
-        cur.execute(f"SELECT COUNT(*) FROM {PG_TABLE};")
-        count = cur.fetchone()[0]
-        return count
-    except Exception:
-        return 0
-
 def import_to_postgres(json_data: Dict[str, Any]):
     """
     Stream data from JSON-stat2 directly to PostgreSQL.
-    Only inserts NEW rows (not already in database).
+    The target table is truncated first so reruns stay idempotent.
     """
     logging.info("Connecting to PostgreSQL...")
     conn = psycopg2.connect(host=PG_HOST, database=PG_DB, user=PG_USER, password=PG_PASS)
@@ -142,16 +132,10 @@ def import_to_postgres(json_data: Dict[str, Any]):
         );
     """)
     conn.commit()
-    
-    # Get existing row count
-    existing_count = get_existing_rows(conn)
-    logging.info(f"Existing rows in {PG_TABLE}: {existing_count}")
-    
-    if existing_count > 0:
-        logging.info("Data already exists. Checking for new rows...")
-        # Only append new rows, don't truncate
-    else:
-        logging.info("No existing data. Inserting all rows...")
+
+    logging.info("Truncating %s before full reload...", PG_TABLE)
+    cur.execute(f'TRUNCATE TABLE {PG_TABLE};')
+    conn.commit()
     
     # Stream and insert rows
     logging.info("Importing data...")

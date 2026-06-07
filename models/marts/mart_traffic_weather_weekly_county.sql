@@ -25,7 +25,7 @@ select
     weather.total_sunshine,
     weather.hot_day_count,
     weather.cold_day_count,
-    weather.observed_day_count,
+    coalesce(weather.observed_day_count, 0) as observed_day_count,
     weather_history.avg_temp_hist_avg,
     weather.avg_temp - weather_history.avg_temp_hist_avg as avg_temp_vs_hist,
     weather_history.avg_max_temp_hist_avg,
