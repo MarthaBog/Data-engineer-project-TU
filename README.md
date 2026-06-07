@@ -120,11 +120,6 @@ Täpsem kirjeldus: [`Docs/Arhitektuur.md`](docs/arhitektuur.md)
 | ilm | Keskkonnaportaal - sisaldab **ilmamõõtmisi** Eestis tunni ja jaama kaupa | json | kord tunnis | [Ilmastikunähtused](https://keskkonnaportaal.ee/et/avaandmed/keskkonna-ja-ilma-valdkonna-andmeteenused) |
 | onnetused | Transpordiamet - sisaldab **liiklusõnnetusi**, nendes vigastatute ja hukkunute arvu maakonniti | csv | kord nädalas | [Liiklusõnnetused](https://andmed.eesti.ee/datasets/inimkannatanutega-liiklusonnetuste-andmed) |
 
-**Liikluse andmed**
-Skript _download_liiklus.py_ pärib Maanteeameti liiklusõnnetuste API-st värsked liiklusõnnetuste kirjed.
-Saadud JSON andmed teisendatakse ridade kaupa ning kirjutatakse PostgreSQL tabelisse .
-Skript tagab, et uued andmed lisatakse olemasolevatele, vältides duplikaate.
-
 **Surmad**
 Skript _download_surm.py_ laeb alla Statistikaameti API-st surmade statistika (vanus, sugu, põhjus).
 Andmed puhastatakse ja normaliseeritakse ning seejärel salvestatakse PostgreSQL andmebaasi tabelisse surmad.
@@ -134,6 +129,10 @@ Skript on osa automaatsest ETL protsessist, mis tagab, et surmaandmed on alati a
 Skript _download_ilm.py_ laadib alla Eesti Ilmateenistuse API-st ilmaandmed (temperatuur, sademed, tuul) JSON-formaadis.
 Andmed parsitakse sobivasse struktuuri ja salvestatakse PostgreSQL andmebaasi tabelisse, kasutades SQL INSERT käske.
 Skript käivitub automaatselt pipeline’i osana ja uuendab andmeid perioodiliselt.
+
+**Liikluse andmed**
+Skript _download_liiklus.py_ pärib Maanteeameti portaalist liiklusõnnetuste andmed .csv failina.
+Saadud andmed kirjutatakse PostgreSQL tabelisse.
 
 ## Andmetorude orkestreerimine
 
