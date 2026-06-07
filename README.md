@@ -217,8 +217,10 @@ docker compose up -d --build
         docker compose --profile dbt run --rm dbt run
         docker compose --profile dbt run --rm dbt test
         )
-
-# 4. Superseti avamiseks
+# 4. Selleks, et skripti jooksutades kohe tulemust näeks, tuleb kirjutada (vastasel korral toimub laadimine alles siis kui crontabis see on ette nähtud)
+docker compose exec orchestrator bash /app/orchestrator/run.sh
+ 
+# 5. Superseti avamiseks
 Superset link (parool failis ".env")
 http://localhost:8088
 
