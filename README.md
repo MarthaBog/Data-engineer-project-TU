@@ -163,8 +163,7 @@ Struktuur:
 
 ## Andmekvaliteedi testid
 
-Testisime andmeid käsitsi, automaatset testimist hetkel ei ole. Võimalikud testimise ideed:
-- Idempotentsus -- et taaskäivitamisel saame sama tulemuse ja et meil ei tekiks duplikaate.
+- Idempotentsus -- et taaskäivitamisel saame sama tulemuse ja et meil ei tekiks duplikaate. Lahendatud sellega, et iga käivituse alguses kututatakse toorandmed maha ja tehakse kogu protsess uuesti. 
 - Vajalikud dimensioonid (nädalad, aastad, maakonnad, vanuserühmad ja sugu) ei sisaldaks tühje väärtusi.
 - Vaatame andmetes miinimum- ja maksimumväärtusi, kas need on loogilised.
 
@@ -230,17 +229,16 @@ Docker Compose käivitab kõik teenused
 Projekt käivitub iga nädal 1x automaatselt
 Andmed saadakse allikatest kätte
 Transformatsioonid toimuvad staging, intermediate ja marts kihtides
+Toimuvad andmekvaliteedikontrollid peale andmete transformeerimist
 Olemas on Superseti nädikulaud
 
 **Puudused:**
-- Andmekvaliteedi teste ei jõudnud skriptideks kirjutada
 - Palju aega kulus sellele, et kõik meeskonnaliikmed proovisid töövooga kaasas käia. Kõige ajamahukamateks kujunesid Superseti töölesaamine ja ajastamise programmeerimine.
-- Kontrollide kirjutamie ei tundu tehniliselt väga keeruline, Seega jäi see kõige viimaseks. Kasulikum ja huvitavamtundus projekti ülejäänud osade valmissaamine.
 - Saladuste fail tuleb kästsi kopeerida, see ei toimu automaatselt koos projekti käivitamisega.
+- Andmevaliteedi testid said tehtud kõige viimasena ja seega võib seal olla veel puudusi.
 
 **Mis edasi:**
 - Tuleks põhjalikumalt mõelda äriküsimuste sisukuse peale.
-- Andmekvaliteedi automaatkontrollid kirjutada skriptideks.
 - Ajastamine toimub hetkel 1x nädalas kõikide toorandmete puhul korraga, aga võiks toimuda eraldi vastavalt iga algallika uuenemise sagedusele.
 
 ## Meeskond
@@ -249,6 +247,6 @@ Olemas on Superseti nädikulaud
 |------|----------|--------|
 | Andmeallika omanik | Kirjutab sissevõtu loogika, hoiab API-t töös | Inge, Heti |
 | Transformatsioonide omanik | Kirjutab mart kihi mudelid ja mõõdikute arvutuse | Mark |
-| Kvaliteedi omanik | Kirjutab testid ja vaatab läbi ebaõnnestunud kontrollid | Inge, Heti |
+| Kvaliteedi omanik | Kirjutab testid ja vaatab läbi ebaõnnestunud kontrollid | Mark |
 | Ajastamise omanik | Sätib paika ajastamise | Inge, Heti |
 | Näidikulaua omanik | Ehitab näidikulaua ja seob selle äriküsimusega | Marta |
