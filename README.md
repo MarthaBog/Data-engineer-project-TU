@@ -8,7 +8,7 @@ Analüüs ei otsi ega tõesta põhjuslikke seoseid, vaid kirjeldab statistilisi 
 
 **Mõõdikud:**
 
-1.Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
+1. Liiklusõnnetuste arv, vigastatute ja hukkunute arv ööpäevas maakondade lõikes
   liiklusõnnetus(valida gruppi), grupeeritud nädal + maakond järgi
   
 2. Surmajuhtude arv nädalas - surnud inimeste arv ühes nädalas, vanuserühmiti ja maakonniti või piirkonniti Nädala keskmine temperatuur grupeeritud aasta + nädal järgi
