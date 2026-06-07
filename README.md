@@ -166,7 +166,7 @@ Andmeid vaadeldakse **aastate ja nädalate lõikes** ning lisaks on võimalik tu
 
 Filtrite kasutamisel tuleb arvestada, et visualisatsioonid põhinevad erinevatel tabelitel. Seetõttu ei mõjuta kõik filtrid kõiki graafikuid korraga. Näiteks maakonna filter rakendub ainult nendele visualisatsioonidele, mille aluseks olevas tabelis on maakonna tunnus olemas.
 
-![alt text](./image.png)
+![Dashboard](./dashboard.png)
 
 ### Dashboardi loomise protsess
 
